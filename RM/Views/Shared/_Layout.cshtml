@@ -1,0 +1,270 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>RM-Metals</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- Template styles-->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Animation -->
+    <link rel="stylesheet" href="~/css/animate.css">
+
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="~/css/owl.carousel.css">
+    <!-- Bxslider -->
+    <link rel="stylesheet" href="~/css/jquery.bxslider.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="~/js/html5shiv.js"></script>
+      <script src="~/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <!-- Header start -->
+    <header id="header" class="navbar-fixed-top main-nav" role="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 heade_bg">
+                    <!--/ Top info start -->
+                    <div class="top-info">
+                        <ul class="pull-right">
+                            <!-- Social links -->
+                            <li class="social-icon">
+                                <a id="tooltip2" data-toggle="tooltip" data-placement="top" title="Facebook" href="#">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a id="tooltip1" data-toggle="tooltip" data-placement="top" title="Twitter" href="#">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a id="tooltip3" href="#" data-toggle="tooltip" data-placement="top" title="Google+">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                                <a id="tooltip4" href="#" data-toggle="tooltip" data-placement="top" title="Dribble">
+                                    <i class="fa fa-skype"></i>
+                                </a>
+                                <a id="tooltip2" data-toggle="tooltip" data-placement="top" title="Facebook" href="#">
+                                    <i class="fa fa-comments"></i>
+                                </a>
+
+
+                            </li><!-- Social links end-->
+                            @Html.Partial("_LoginPartial")
+
+                        </ul>
+                    </div><!--/ Top info end -->
+                    <!-- Logo start -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand logo" href="index-2.html">
+                            <img class="img-responsive" src="~/images/logo.png" alt="logo">
+                        </a>
+                    </div><!--/ Logo end -->
+
+                    <nav class="collapse navbar-collapse clearfix" role="navigation">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown active">
+                                @Html.ActionLink("Home", "Index", "Home")
+                            </li>
+                            <li>@Html.ActionLink("Inventory", "Index", "Inventory")</li>
+                           
+
+                            <li class="dropdown">
+                                <a href="contact.html" class="dropdown-toggle" data-toggle="dropdown">Admin</a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Report", "Index", "Report")</li>
+                                    <li>@Html.ActionLink("Up Load Inventory", "Create", "Inventory")</li>
+                                </ul>
+                            </li>
+                            
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA TABLES </a>
+                                <!--<ul class="dropdown-menu">
+                                    <li><a href="portfolio-4col.html">Portfolio 4col</a></li>
+                                    <li><a href="portfolio-item.html">Portfolio Details</a></li>
+                                </ul>-->
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">POLICIES </a>
+                                <!--   <ul class="dropdown-menu">
+                                       <li><a href="blog.html">Blog with Sidebar</a></li>
+                                       <li><a href="blog-item.html">Blog Single</a></li>
+                                   </ul>-->
+                            </li>
+                            
+
+                        </ul>
+                    </nav><!--/ Navigation end -->
+
+
+                </div><!--/ Col end -->
+
+            </div><!--/ Row end -->
+
+        </div><!--/ Container end -->
+    </header><!--/ Header end -->
+
+    <scetion id="innercontent">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 innerbanner">
+                    <img src="~/images/abou_inner.jpg" class="img-responsive">
+                </div>
+            </div>
+        </div>
+
+
+
+        <section id="service" class="wow fadeInUp">
+            <div class="container">
+                <div class="row">
+
+                    @RenderBody()
+                    </div>
+
+                </div>
+
+        </section>
+
+
+
+
+        <section id="footer-wrapper">
+            <!-- Footer top start -->
+            <footer id="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+                            <div class="quicklinks">
+                                <h3 class="footer-title">Quick Links</h3>
+
+
+                                <ul>
+                                    <li><a href="#">HOME </a></li>
+                                    <li><a href="#">LOCAL DISTRIBUTION</a></li>
+                                    <li><a href="#">EXPORT SALES   </a></li>
+                                    <li><a href="#">INVENTORY</a></li>
+                                    <li><a href="#">DATA TABLES   </a></li>
+                                    <li><a href="#">POLICIES   </a></li>
+                                </ul>
+
+
+                            </div>
+                        </div><!--/ end about us -->
+
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+                            <div class="quicklinks">
+                                <h3 class="footer-title">Quick Links</h3>
+                                <ul>
+                                    <li><a href="#">HOME </a></li>
+                                    <li><a href="#">LOCAL DISTRIBUTION</a></li>
+                                    <li><a href="#">EXPORT SALES   </a></li>
+                                    <li><a href="#">INVENTORY</a></li>
+                                    <li><a href="#">DATA TABLES   </a></li>
+                                    <li><a href="#">POLICIES   </a></li>
+                                </ul>
+                            </div>
+                        </div><!--/ end recent post -->
+
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+
+                            <h3 class="footer-title">contact Us</h3>
+                            <div class="contactaddress">
+
+                                <address>
+                                    <ul class="list-unstyled">
+                                        <li class="footer-sprite address">
+                                            50 Cragwood Road, Suite 308<br>
+                                            South Plainfield, NJ 07080<br>
+                                            USA<br>
+                                        </li>
+                                        <li class="footer-sprite phone">
+                                            Tel : 001 (908) 222-1500
+                                        </li>
+                                        <li class="footer-sprite email">
+                                            <a href="mailto: rmmetals@gmail.com"> rmmetals@gmail.com</a>
+                                        </li>
+                                    </ul>
+                                </address>
+
+                            </div>
+
+                        </div><!--/ end flickr -->
+
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+                            <div class="footer-icons">
+                                <h3 class="footer-title">Fallow Us</h3>
+                                <p class="footer-social">
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                    <a href="#"><i class="fa fa-skype"></i></a>
+                                    <a href="#"><i class="fa fa-comments"></i></a>
+
+                                </p>
+                                <div class="newsletter">
+                                    <h4>Newsletter subscription</h4>
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control emailform" id="email" value="E-mail">
+                                        </div>
+                                    </form>
+                                    <button type="button" class="btn btn-primary submitbutton">Submit</button>
+                                </div>
+                            </div>
+                        </div><!--/ end tweet -->
+
+                    </div><!-- Row end -->
+                </div><!-- Container end -->
+            </footer><!-- Footer top end -->
+            <!-- Footer bottom start -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+
+
+                        <div class="col-md-12 wow fadeInRight animated" style="visibility: visible;">
+                            <div class="copyright-info">
+                                Rights Reserved, RM METALS 2011-2016  Copyright</span>
+                            </div>
+                        </div>
+                    </div><!-- Row end -->
+                </div><!-- Container end -->
+            </div><!-- Footer bottom end -->
+        </section>
+    </scetion>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Owl Carousel -->
+    <script type="text/javascript" src="~/js/owl.carousel.js"></script>
+    <!-- SmoothScroll -->
+    <script type="text/javascript" src="~/js/smoothscroll.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,120 @@
+﻿@model RM.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+
+<div class="col-lg-12"> <h2 class="wellcome">Register Here</h2></div>
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <form class="form-horizontal">
+        <div class="col-md-6 col-sm-6 wow fadeInLeft animated">
+
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label"> <span>*</span> Email</label>
+                <div class="col-md-10">
+
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label"> <span>*</span> Password</label>
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label"> <span>*</span> Confirm Password</label>
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label"> <span>*</span> Full Name</label>
+
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                </div>
+            </div><div class="form-group">
+                @Html.LabelFor(m => m.CompanyName, new { @class = "col-sm-4 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                </div>
+            </div><div class="form-group">
+                @Html.LabelFor(m => m.CompanyEmail, new { @class = "col-sm-4  control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.CompanyEmail, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label"> <span>*</span> Phone Number</label>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PhoneNumber2, new { @class = "col-sm-4 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.PhoneNumber2, new { @class = "form-control" })
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-6 col-sm-6 wow fadeInLeft animated">
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Address, new { @class = "col-sm-4  control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Address2, new { @class = "col-sm-4  control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Address2, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.City, new { @class = "col-sm-4  control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                </div>
+            </div><div class="form-group">
+                @Html.LabelFor(m => m.State, new { @class = "col-sm-4  control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+                </div>
+            </div><div class="form-group">
+                @Html.LabelFor(m => m.Zip, new { @class = "col-sm-4  control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
+                </div>
+            </div><div class="form-group">
+                @Html.LabelFor(m => m.Fax, new { @class = "col-sm-4  control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Fax, new { @class = "form-control" })
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Register" />
+                </div>
+            </div>
+
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
+        </div>
+    </form>
+}
+
+

@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Upload your excel file here</h2>
+
+@using (Html.BeginForm("Create", "Inventory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<input type="File" name="file"  />
+<input type="submit" value="upload" class="btn btn-default signin"/>
+}
+

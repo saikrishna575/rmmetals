@@ -1,0 +1,147 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using RM.Models;
+@model UserTracking
+@if (Model != null)
+            {
+    @Html.PagedListPager(Model.PagedUserTrackingList, page => Url.Action("Index", new
+{
+    page,
+    Model.StartDate,
+    Model.EndDate,
+    Model.StartDateHours,
+    Model.StartDateAmPm,
+    Model.EndDateAmPm,
+    Model.StartDateMinutes,
+    Model.EndDateMinutes,
+    Model.EndDateHours,
+    Model.RadioButtonSelectedValue
+}),
+                        new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+}
+<div class="col-md-8 col-sm-6 aboutus wow fadeInLeft animated" style="width:100%">
+    <div class="bs-example" data-example-id="striped-table">
+        <div class="table-responsive">
+            <h2 class="wellcome">Reports</h2>
+            <table class="table table-bordered table-hover" border="0">
+
+                @using (@Html.BeginForm())
+                {
+                    <tr>
+                        <td>
+                            From Date: &nbsp;&nbsp;
+                            @Html.EditorFor(model => model.StartDate)
+                            @Html.DropDownListFor(model => model.StartDateHours, new SelectList(ViewBag.GetHours, "Value", "Text"))
+                            @Html.DropDownListFor(model => model.StartDateMinutes, new SelectList(ViewBag.GetMins, "Value", "Text"))
+                            @Html.DropDownListFor(model => model.StartDateAmPm, new SelectList(ViewBag.GetAmPm, "Value", "Text"))
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            To Date:&nbsp;&nbsp;
+                            @Html.EditorFor(model => model.EndDate)
+                            @Html.DropDownListFor(model => model.EndDateHours, new SelectList(ViewBag.GetHours, "Value", "Text"))
+                            @Html.DropDownListFor(model => model.EndDateMinutes, new SelectList(ViewBag.GetMins, "Value", "Text"))
+                            @Html.DropDownListFor(model => model.EndDateAmPm, new SelectList(ViewBag.GetAmPm, "Value", "Text"))
+                        </td>
+                    </tr>
+                            <tr>
+                                <td>
+                                    @Html.RadioButtonFor(model => model.RadioButtonSelectedValue, 1, new { @checked = true }) User Tracking Report
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    @Html.RadioButtonFor(model => model.RadioButtonSelectedValue, 2) Searched Data Report
+                                    <span style="float:right"><input type="submit" value="Search" /></span>
+                                </td>
+                            </tr>
+                }
+            </table>
+            @if (Model != null)
+            {
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IPAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TimeStamp)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.user_Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CompanyName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PhoneNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+
+                            @if (Model.RadioButtonSelectedValue == "2")
+                            {
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SearchedData)
+                                </th>
+                            }
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model.PagedUserTrackingList)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IPAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TimeStamp)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.user_Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CompanyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+
+                                @if (Model.RadioButtonSelectedValue == "2")
+                                {
+                                    <th>
+                                        @Html.DisplayFor(modelItem => item.SearchedData)
+                                    </th>
+                                }
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            }
+            @if (Model != null)
+            {
+
+                @Html.PagedListPager(Model.PagedUserTrackingList, page => Url.Action("Index", new
+           {
+               page,
+               Model.StartDate,
+               Model.EndDate,
+               Model.StartDateHours,
+               Model.StartDateAmPm,
+               Model.EndDateAmPm,
+               Model.StartDateMinutes,
+               Model.EndDateMinutes,
+               Model.EndDateHours,
+               Model.RadioButtonSelectedValue
+           }),
+                        new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+            }
+        </div>
+    </div>
+</div>
