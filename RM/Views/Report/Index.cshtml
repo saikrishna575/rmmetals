@@ -40,7 +40,11 @@
                             @Html.DropDownListFor(model => model.EndDateHours, new SelectList(ViewBag.GetHours, "Value", "Text"))
                             @Html.DropDownListFor(model => model.EndDateMinutes, new SelectList(ViewBag.GetMins, "Value", "Text"))
                             @Html.DropDownListFor(model => model.EndDateAmPm, new SelectList(ViewBag.GetAmPm, "Value", "Text"))
+                            &nbsp;&nbsp;&nbsp;
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter User Name" } })
                         </td>
+
+                       
                     </tr>
                             <tr>
                                 <td>
@@ -54,9 +58,13 @@
             </table>
             @if (Model != null)
             {
+                int i = 1;
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
+                            <th>
+                                #
+                            </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.IPAddress)
                             </th>
@@ -87,10 +95,15 @@
                             }
                         </tr>
                     </thead>
+
+                   
                     @foreach (var item in Model.PagedUserTrackingList)
                     {
                         <tbody>
                             <tr>
+                                <td>
+                                    @i
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IPAddress)
                                 </td>
@@ -123,6 +136,7 @@
                         </tbody>
                     }
                 </table>
+                i = i + 1;
             }
             @if (Model != null)
             {

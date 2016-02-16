@@ -37,12 +37,16 @@ namespace RM.Controllers
 
             pro.ProductList = pro.ProductsList().ToList();
 
-            pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Contains(string.IsNullOrEmpty(pro.Loc) ? a.Loc : pro.Loc.ToUpper())).
-                Where(a => a.Type.ToUpper().Contains(string.IsNullOrEmpty(pro.Type) ? a.Type : pro.Type.ToUpper())).
-                Where(a => a.Finish.ToUpper().Contains(string.IsNullOrEmpty(pro.Finish) ? a.Finish : pro.Finish.ToUpper())).
-                Where(a => a.Gauge.ToUpper().Contains(string.IsNullOrEmpty(pro.Gauge) ? a.Gauge : pro.Gauge.ToUpper())).
-                Where(a => a.Width.ToUpper().Contains(string.IsNullOrEmpty(pro.Width) ? a.Width : (pro.Width.ToUpper()))).
-                Where(a => a.WTNET.ToUpper().Contains(string.IsNullOrEmpty(pro.WTNET) ? a.WTNET : (pro.WTNET.ToUpper()))).ToList();
+            pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Equals(string.IsNullOrEmpty(pro.Loc) ? a.Loc : pro.Loc.ToUpper())).
+                Where(a => a.Type.ToUpper().Equals(string.IsNullOrEmpty(pro.Type) ? a.Type : pro.Type.ToUpper())).
+                Where(a => a.Finish.ToUpper().Equals(string.IsNullOrEmpty(pro.Finish) ? a.Finish : pro.Finish.ToUpper())).
+                Where(a => a.Gauge.ToUpper().Equals(string.IsNullOrEmpty(pro.Gauge) ? a.Gauge : pro.Gauge.ToUpper())).
+                Where(a => a.Width.ToUpper().Equals(string.IsNullOrEmpty(pro.Width) ? a.Width : (pro.Width.ToUpper()))).
+                Where(a => a.WTNET.ToUpper().Equals(string.IsNullOrEmpty(pro.WTNET) ? a.WTNET : (pro.WTNET.ToUpper()))).ToList();
+
+            //List Displayed only after searched in filters
+
+           
 
             if (Id.HasValue)
             {
@@ -56,7 +60,7 @@ namespace RM.Controllers
                 var smtpClient = new SmtpClient();
                 var message = new MailMessage("no-reply@suteki.co.uk", "admin@gmail.com")
                 {
-                    Subject = "Requested Quote" + quote.product.Loc,
+                    Subject = "Requested Quote" + quote.product.Loc + quote.product.Type + quote.product.Finish + quote.product.Gauge + quote.product.Width +quote.product.WTNET+ quote.product.NOOFPCS,
                     Body = "User Name " + User.Identity.GetUserName() + Environment.NewLine + "Phone Nubmer :" + quote.PhoneNumber + Environment.NewLine + "Ip Adderss:" + Request.ServerVariables["REMOTE_ADDR"]
 
                 };
@@ -114,14 +118,13 @@ namespace RM.Controllers
 
             List<SelectListItem> listitems = new List<SelectListItem>();
 
-            listitems.Add(new SelectListItem { Text = "10 items ", Value = "10" });
-            listitems.Add(new SelectListItem { Text = "20 items ", Value = "20" });
-            listitems.Add(new SelectListItem { Text = "30 items ", Value = "30" });
-            listitems.Add(new SelectListItem { Text = "40 items ", Value = "40" });
+            listitems.Add(new SelectListItem { Text = "50 items ", Value = "50" });
+            listitems.Add(new SelectListItem { Text = "100 items ", Value = "100" });
+            listitems.Add(new SelectListItem { Text = "150 items ", Value = "150" });
             ViewBag.ListItems = listitems;
             if (string.IsNullOrEmpty(Pages))
             {
-                pro.IPagedProductsList = pro.ProductList.ToPagedList(page ?? 1, 10);
+                pro.IPagedProductsList = pro.ProductList.ToPagedList(page ?? 1, 50);     //Default Paging is 50
                 return View(pro);
             }
             else
@@ -175,29 +178,34 @@ namespace RM.Controllers
 
             pro.ProductList = pro.ProductsList().ToList();
 
-            pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Contains(string.IsNullOrEmpty(pro.Loc) ? a.Loc : pro.Loc.ToUpper())).
-                Where(a => a.Type.ToUpper().Contains(string.IsNullOrEmpty(pro.Type) ? a.Type : pro.Type.ToUpper())).
-                Where(a => a.Finish.ToUpper().Contains(string.IsNullOrEmpty(pro.Finish) ? a.Finish : pro.Finish.ToUpper())).
-                Where(a => a.Gauge.ToUpper().Contains(string.IsNullOrEmpty(pro.Gauge) ? a.Gauge : pro.Gauge.ToUpper())).
-                Where(a => a.Width.ToUpper().Contains(string.IsNullOrEmpty(pro.Width) ? a.Width : (pro.Width.ToUpper()))).
-                Where(a => a.WTNET.ToUpper().Contains(string.IsNullOrEmpty(pro.WTNET) ? a.WTNET : (pro.WTNET.ToUpper()))).ToList();
+            //pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Contains(string.IsNullOrEmpty(pro.Loc) ? a.Loc : pro.Loc.ToUpper())).
+            //    Where(a => a.Type.ToUpper().Contains(string.IsNullOrEmpty(pro.Type) ? a.Type : pro.Type.ToUpper())).
+            //    Where(a => a.Finish.ToUpper().Contains(string.IsNullOrEmpty(pro.Finish) ? a.Finish : pro.Finish.ToUpper())).
+            //    Where(a => a.Gauge.ToUpper().Contains(string.IsNullOrEmpty(pro.Gauge) ? a.Gauge : pro.Gauge.ToUpper())).
+            //    Where(a => a.Width.ToUpper().Contains(string.IsNullOrEmpty(pro.Width) ? a.Width : (pro.Width.ToUpper()))).
+            //    Where(a => a.WTNET.ToUpper().Contains(string.IsNullOrEmpty(pro.WTNET) ? a.WTNET : (pro.WTNET.ToUpper()))).ToList();
 
+
+            //List Displayed only after searched in filters
+
+            pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Contains(pro.Loc.ToUpper())).
+            Where(a => a.Type.ToUpper().Contains(pro.Type.ToUpper())).
+            Where(a => a.Finish.ToUpper().Contains(pro.Finish.ToUpper())).
+            Where(a => a.Gauge.ToUpper().Contains(pro.Gauge.ToUpper())).
+            Where(a => a.Width.ToUpper().Contains(pro.Width.ToUpper())).
+            Where(a => a.WTNET.ToUpper().Contains(pro.WTNET.ToUpper())).ToList();
 
             List<SelectListItem> listitems = new List<SelectListItem>();
-
-            listitems.Add(new SelectListItem { Text = "10 items ", Value = "10" });
-            listitems.Add(new SelectListItem { Text = "20 items ", Value = "20" });
-            listitems.Add(new SelectListItem { Text = "30 items ", Value = "30" });
-            listitems.Add(new SelectListItem { Text = "40 items ", Value = "40" });
-
-
+            listitems.Add(new SelectListItem { Text = "50 items ", Value = "50" });
+            listitems.Add(new SelectListItem { Text = "100 items ", Value = "100" });
+            listitems.Add(new SelectListItem { Text = "150 items ", Value = "150" });
             ViewBag.ListItems = listitems;
 
 
             if (string.IsNullOrEmpty(Pages))
             {
 
-                pro.IPagedProductsList = pro.ProductList.ToPagedList(page ?? 1, 10);
+                pro.IPagedProductsList = pro.ProductList.ToPagedList(page ?? 1, 50);   //Default Paging is 50
                 return View(pro);
             }
             else

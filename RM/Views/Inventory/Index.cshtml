@@ -12,21 +12,9 @@
         $('#Pages').change(function () {
 
             val = $(this).val();
-            if (val == 20) {
-                window.location.href = '@Html.Raw( @Url.Action("index", "Inventory",new { Pages = 20,                                      
-                                       Loc = Model.Loc,
-                                       Type = Model.Type,
-                                       Finish = Model.Finish,
-                                       Gauge = Model.Gauge,
-                                       Width = Model.Width,
-                                       WTNET = Model.WTNET
+            if (val == 100) {
 
-                                   }))'
-
-            }
-            else if (val == 30) {
-
-                window.location.href = '@Html.Raw(@Url.Action("index", "Inventory", new { Pages = 30,
+                window.location.href = '@Html.Raw(@Url.Action("index", "Inventory", new { Pages = 100,
                                        Loc = Model.Loc,
                                        Type = Model.Type,
                                        Finish = Model.Finish,
@@ -36,9 +24,9 @@
                                    }))'
 
             }
-            else if (val == 40) {
+            else if (val == 150) {
 
-                window.location.href = '@Html.Raw(@Url.Action("index", "Inventory", new { Pages = 40,
+                window.location.href = '@Html.Raw(@Url.Action("index", "Inventory", new { Pages = 150,
                                        Loc = Model.Loc,
                                        Type = Model.Type,
                                        Finish = Model.Finish,
@@ -49,7 +37,7 @@
 
             }
             else {
-                window.location.href = '@Html.Raw(@Url.Action("index", "Inventory", new { Pages = 10,
+                window.location.href = '@Html.Raw(@Url.Action("index", "Inventory", new { Pages = 50,
                                        Loc = Model.Loc,
                                        Type = Model.Type,
                                        Finish = Model.Finish,
@@ -67,17 +55,17 @@
 @if (Model != null)
             {
     @Html.PagedListPager(Model.IPagedProductsList, page => Url.Action("Index", new
-   {
-       page,
-       Loc = Model.Loc,
-       Type = Model.Type,
-       Finish = Model.Finish,
-       Gauge = Model.Gauge,
-       Width = Model.Width,
-       WTNET = Model.WTNET,
-       Pages = Request.QueryString["Pages"],
-       sortOrder = Request["sortOrder"]
-   }),
+{
+    page,
+    Loc = Model.Loc,
+    Type = Model.Type,
+    Finish = Model.Finish,
+    Gauge = Model.Gauge,
+    Width = Model.Width,
+    WTNET = Model.WTNET,
+    Pages = Request.QueryString["Pages"],
+    sortOrder = Request["sortOrder"]
+}),
             new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
 
 }
@@ -86,217 +74,282 @@
 <div class="col-md-8 col-sm-6 aboutus wow fadeInLeft animated">
     <div class="bs-example" data-example-id="striped-table">
         <div class="table-responsive">
-    <h2 class="wellcome">Inventory</h2>
-    <table class="table table-bordered table-hover">
-        <thead>
-                @using (Html.BeginForm("Index", "Inventory", new { Pages = ViewBag.Pages }, FormMethod.Post))
-                {
+            <h2 class="wellcome">Inventory</h2>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    @using (Html.BeginForm("Index", "Inventory", new { Pages = ViewBag.Pages }, FormMethod.Post))
+                    {
 
+                        <tr>
+                            <th>
+
+                            </th>
+                            <th>
+                                @Html.TextBoxFor(model => model.Loc, null, new { @placeholder = "Location", @class = "form-control" })
+                            </th>
+                            <th>
+                                @Html.TextBoxFor(model => model.Type, null, new { @placeholder = " Type", @class = "form-control" })
+                            </th>
+                            <th>
+                                @Html.TextBoxFor(model => model.Finish, null, new { @placeholder = " Finish ", @class = "form-control" })
+                            </th>
+                            <th>
+                                @Html.TextBoxFor(model => model.Gauge, null, new { @placeholder = " Gauge ", @class = "form-control" })
+                            </th>
+                            <th>
+                                @Html.TextBoxFor(model => model.Width, null, new { @placeholder = " Width ", @class = "form-control" })
+                            </th>
+                            <th>
+                                @Html.TextBoxFor(model => model.WTNET, null, new { @placeholder = " WTNET ", @class = "form-control" })
+                            </th>
+                            <th>
+                                @Html.DropDownList("Pages", ViewBag.ListItems as IEnumerable<SelectListItem>, new { @class = "btn btn-default" })
+                            </th>
+                            <th>
+                                <input type="submit" name="submit" value="search" class="btn btn-default signin" />
+                            </th>
+
+                        </tr>
+
+
+                    }
+                </thead>
+
+                <thead>
                     <tr>
                         <th>
-
+                            #
                         </th>
                         <th>
-                            @Html.TextBoxFor(model => model.Loc, null, new { @placeholder = "Location" ,@class = "form-control" })
+                            @Html.ActionLink("Location", "Index", new
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.LocSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
-                            @Html.TextBoxFor(model => model.Type, null, new { @placeholder = " Type",@class = "form-control" })
+                            @Html.ActionLink("Type", "Index", new
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.TypeSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
-                            @Html.TextBoxFor(model => model.Finish, null, new { @placeholder = " Finish ", @class = "form-control" })
+                            @Html.ActionLink("Finish", "Index", new
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.FinishSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
-                            @Html.TextBoxFor(model => model.Gauge, null, new { @placeholder = " Gauge ", @class = "form-control" })
+                            @Html.ActionLink("Gauge", "Index", new
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.GaugeSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
-                            @Html.TextBoxFor(model => model.Width, null, new { @placeholder = " Width ", @class = "form-control" })
+                            @Html.ActionLink("Width", "Index", new
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.WidthSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
-                            @Html.TextBoxFor(model => model.WTNET, null, new { @placeholder = " WTNET ", @class = "form-control" })
+                            @Html.ActionLink("WTNET", "Index", new
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.WTNETSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
-                            @Html.DropDownList("Pages", ViewBag.ListItems as IEnumerable<SelectListItem>, new { @class = "btn btn-default" })
+                            @Html.ActionLink("NOOFPCS", "Index", new
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.NOOFPCSSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
-                        <th>
-                            <input type="submit" name="submit" value="search" class="btn btn-default signin" />
-                        </th>
-                       
-                    </tr>
-
-
-                }
-            </thead>
-  
-        <thead>
-            <tr>
-                <th>
-                    #
-                </th>
-                <th>
-                    @Html.ActionLink("Location", "Index", new
-               {
-                   Pages = ViewBag.Pages,
-                   sortOrder = ViewBag.LocSortParm,
-                   Loc = Model.Loc,
-                   Type = Model.Type,
-                   Finish = Model.Finish,
-                   Gauge = Model.Gauge,
-                   Width = Model.Width,
-                   WTNET = Model.WTNET
-               }, new { style = "color:white" })
-                </th>
-                <th>
-                    @Html.ActionLink("Type", "Index", new
-                   {
-                       Pages = ViewBag.Pages,
-                       sortOrder = ViewBag.TypeSortParm,
-                       Loc = Model.Loc,
-                       Type = Model.Type,
-                       Finish = Model.Finish,
-                       Gauge = Model.Gauge,
-                       Width = Model.Width,
-                       WTNET = Model.WTNET
-                   }, new { style = "color:white" })
-                </th>
-                <th>
-                    @Html.ActionLink("Finish", "Index", new
-                   {
-                       Pages = ViewBag.Pages,
-                       sortOrder = ViewBag.FinishSortParm,
-                       Loc = Model.Loc,
-                       Type = Model.Type,
-                       Finish = Model.Finish,
-                       Gauge = Model.Gauge,
-                       Width = Model.Width,
-                       WTNET = Model.WTNET
-                   }, new { style = "color:white" })
-                </th>
-                <th>
-                    @Html.ActionLink("Gauge", "Index", new
-                   {
-                       Pages = ViewBag.Pages,
-                       sortOrder = ViewBag.GaugeSortParm,
-                       Loc = Model.Loc,
-                       Type = Model.Type,
-                       Finish = Model.Finish,
-                       Gauge = Model.Gauge,
-                       Width = Model.Width,
-                       WTNET = Model.WTNET
-                   }, new { style = "color:white" })
-                </th>
-                <th>
-                    @Html.ActionLink("Width", "Index", new
-                   {
-                       Pages = ViewBag.Pages,
-                       sortOrder = ViewBag.WidthSortParm,
-                       Loc = Model.Loc,
-                       Type = Model.Type,
-                       Finish = Model.Finish,
-                       Gauge = Model.Gauge,
-                       Width = Model.Width,
-                       WTNET = Model.WTNET
-                   }, new { style = "color:white" })
-                </th>
-                <th>
-                    @Html.ActionLink("WTNET", "Index", new
-                   {
-                       Pages = ViewBag.Pages,
-                       sortOrder = ViewBag.WTNETSortParm,
-                       Loc = Model.Loc,
-                       Type = Model.Type,
-                       Finish = Model.Finish,
-                       Gauge = Model.Gauge,
-                       Width = Model.Width,
-                       WTNET = Model.WTNET
-                   }, new { style = "color:white" })
-                </th>
-                <th>
-                    @Html.ActionLink("NOOFPCS", "Index", new
-                   {
-                       Pages = ViewBag.Pages,
-                       sortOrder = ViewBag.NOOFPCSSortParm,
-                       Loc = Model.Loc,
-                       Type = Model.Type,
-                       Finish = Model.Finish,
-                       Gauge = Model.Gauge,
-                       Width = Model.Width,
-                       WTNET = Model.WTNET
-                   }, new { style = "color:white" })
-                </th>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <th>
-                        Request Quote
-                    </th>
-                }
-            </tr>
-        </thead>
-
-        @if (Model != null)
-            {
-                foreach (var item in Model.IPagedProductsList)
-                {
-                <tbody>
-                    <tr>
-                        <td>
-                           @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Loc)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Finish)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Gauge)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Width)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.WTNET)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NOOFPCS)
-                        </td>
-
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <td>
-                                <input type="button" value="Request quote" class="btn btn-default signin" id="btnRequestQuote" onclick="if (confirm('Do you want to Request quote?')) { window.location.href = '@Url.Action("index", "Inventory", new { Id = item.Id })' }" />
-                            </td>
+                            <th>
+                                Request Quote
+                            </th>
                         }
-
                     </tr>
-                </tbody>
-            }
-        }
+                </thead>
 
-    </table>
+                @if (Model != null)
+                {
+                    int i = 1;
+                    foreach (var item in Model.IPagedProductsList)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @i
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Loc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Type)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Finish)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Gauge)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Width)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.WTNET)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NOOFPCS)
+                                </td>
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <td>
+                                        <input type="button" value="Request quote" class="btn btn-default signin" id="btnRequestQuote" onclick="if (confirm('Do you want to Request quote?')) { window.location.href = '@Url.Action("index", "Inventory", new { Id = item.Id })' }" />
+                                    </td>
+
+                                }
+
+                            </tr>
+                        </tbody>
+                        i = i + 1;
+
+                    }
+                }
+
+            </table>
 
 
-    @if (Model != null)
+            @if (Model != null)
             {
-        @Html.PagedListPager(Model.IPagedProductsList, page => Url.Action("Index", new
-       {
-           page,
-           Loc = Model.Loc,
-           Type = Model.Type,
-           Finish = Model.Finish,
-           Gauge = Model.Gauge,
-           Width = Model.Width,
-           WTNET = Model.WTNET,
-           Pages = Request.QueryString["Pages"],
-           sortOrder = Request["sortOrder"]
-       }),
+                @Html.PagedListPager(Model.IPagedProductsList, page => Url.Action("Index", new
+           {
+               page,
+               Loc = Model.Loc,
+               Type = Model.Type,
+               Finish = Model.Finish,
+               Gauge = Model.Gauge,
+               Width = Model.Width,
+               WTNET = Model.WTNET,
+               Pages = Request.QueryString["Pages"],
+               sortOrder = Request["sortOrder"]
+           }),
             new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
 
-    }
+            }
 
-</div>
+        </div>
     </div>
 </div>
 
+<div class="col-md-4 col-sm-6 wow fadeInLeft animated">
+    <h2 class="wellcome">Testimonials</h2>
+    <div id="tcb-testimonial-carousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators tesimonialsradios">
+            <li data-target="#tcb-testimonial-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#tcb-testimonial-carousel" data-slide-to="1"></li>
+            <li data-target="#tcb-testimonial-carousel" data-slide-to="2"></li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                        <figure class="clearfix">
+                            <div class="col-md-3 col-sm-3 col-xs-12"><img class="img-responsive media-object" src="~/images/testimonials_man.png"> </div>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <p> RM Metals, a division of RM Creation Inc., is headquartered in New Jersey and has been in existence for over 20 years. Over the years we have developed a solid reputation in the trading and distribution of stainless steel. </p>
+                                <p>Worldwide procurement of material allows us to give you a very competitive price. Our company thrives on respect, responsibility, and reputation.</p>
+                                <blockquote class="no-margin">
+                                    <p>NAEME HERE : DESIGNATION HERE</p>
+                                </blockquote>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                        <figure class="clearfix">
+                            <div class="col-md-3 col-sm-3 col-xs-12"><img class="img-responsive media-object" src="~/images/testimonials_man.png"> </div>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <p> RM Metals, a division of RM Creation Inc., is headquartered in New Jersey and has been in existence for over 20 years. Over the years we have developed a solid reputation in the trading and distribution of stainless steel. </p>
+                                <p>Worldwide procurement of material allows us to give you a very competitive price. Our company thrives on respect, responsibility, and reputation.</p>
+                                <blockquote class="no-margin">
+                                    <p>NAEME HERE : DESIGNATION HERE</p>
+                                </blockquote>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                        <figure class="clearfix">
+                            <div class="col-md-3 col-sm-3 col-xs-12"><img class="img-responsive media-object" src="~/images/testimonials_man.png"> </div>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <p> RM Metals, a division of RM Creation Inc., is headquartered in New Jersey and has been in existence for over 20 years. Over the years we have developed a solid reputation in the trading and distribution of stainless steel. </p>
+                                <p>Worldwide procurement of material allows us to give you a very competitive price. Our company thrives on respect, responsibility, and reputation.</p>
+                                <blockquote class="no-margin">
+                                    <p>NAEME HERE : DESIGNATION HERE</p>
+                                </blockquote>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
