@@ -52,9 +52,16 @@
 </script>
 
 
-@if (Model != null)
+
+
+<div class="col-md-12 col-sm-6 aboutus wow fadeInLeft animated">
+    <div class="bs-example" data-example-id="striped-table">
+        <div class="table-responsive">
+            <h2 class="wellcome">Inventory</h2>
+
+            @if (Model != null)
             {
-    @Html.PagedListPager(Model.IPagedProductsList, page => Url.Action("Index", new
+                @Html.PagedListPager(Model.IPagedProductsList, page => Url.Action("Index", new
 {
     page,
     Loc = Model.Loc,
@@ -68,13 +75,7 @@
 }),
             new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
 
-}
-
-
-<div class="col-md-8 col-sm-6 aboutus wow fadeInLeft animated">
-    <div class="bs-example" data-example-id="striped-table">
-        <div class="table-responsive">
-            <h2 class="wellcome">Inventory</h2>
+            }
             <table class="table table-bordered table-hover">
                 <thead>
                     @using (Html.BeginForm("Index", "Inventory", new { Pages = ViewBag.Pages }, FormMethod.Post))
@@ -292,64 +293,3 @@
     </div>
 </div>
 
-<div class="col-md-4 col-sm-6 wow fadeInLeft animated">
-    <h2 class="wellcome">Testimonials</h2>
-    <div id="tcb-testimonial-carousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators tesimonialsradios">
-            <li data-target="#tcb-testimonial-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#tcb-testimonial-carousel" data-slide-to="1"></li>
-            <li data-target="#tcb-testimonial-carousel" data-slide-to="2"></li>
-        </ol>
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
-                        <figure class="clearfix">
-                            <div class="col-md-3 col-sm-3 col-xs-12"><img class="img-responsive media-object" src="~/images/testimonials_man.png"> </div>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                <p> RM Metals, a division of RM Creation Inc., is headquartered in New Jersey and has been in existence for over 20 years. Over the years we have developed a solid reputation in the trading and distribution of stainless steel. </p>
-                                <p>Worldwide procurement of material allows us to give you a very competitive price. Our company thrives on respect, responsibility, and reputation.</p>
-                                <blockquote class="no-margin">
-                                    <p>NAEME HERE : DESIGNATION HERE</p>
-                                </blockquote>
-                            </div>
-                        </figure>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
-                        <figure class="clearfix">
-                            <div class="col-md-3 col-sm-3 col-xs-12"><img class="img-responsive media-object" src="~/images/testimonials_man.png"> </div>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                <p> RM Metals, a division of RM Creation Inc., is headquartered in New Jersey and has been in existence for over 20 years. Over the years we have developed a solid reputation in the trading and distribution of stainless steel. </p>
-                                <p>Worldwide procurement of material allows us to give you a very competitive price. Our company thrives on respect, responsibility, and reputation.</p>
-                                <blockquote class="no-margin">
-                                    <p>NAEME HERE : DESIGNATION HERE</p>
-                                </blockquote>
-                            </div>
-                        </figure>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
-                        <figure class="clearfix">
-                            <div class="col-md-3 col-sm-3 col-xs-12"><img class="img-responsive media-object" src="~/images/testimonials_man.png"> </div>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                <p> RM Metals, a division of RM Creation Inc., is headquartered in New Jersey and has been in existence for over 20 years. Over the years we have developed a solid reputation in the trading and distribution of stainless steel. </p>
-                                <p>Worldwide procurement of material allows us to give you a very competitive price. Our company thrives on respect, responsibility, and reputation.</p>
-                                <blockquote class="no-margin">
-                                    <p>NAEME HERE : DESIGNATION HERE</p>
-                                </blockquote>
-                            </div>
-                        </figure>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
