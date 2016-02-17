@@ -1150,3 +1150,10 @@ ul.navbar-nav li a {
 .fedral:first-child {
 	margin-left:0px;
 }
+#innercontent {
+	top:140px;
+	position:relative;
+}
+.upload{
+    margin-bottom:15px;
+}
