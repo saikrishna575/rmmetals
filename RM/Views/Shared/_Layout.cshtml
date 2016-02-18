@@ -8,7 +8,6 @@
     <title>RM-Metals</title>
     <meta name="description" content="">
     <meta name="author" content="">
-
     <!-- Mobile Specific Metas
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -89,15 +88,18 @@
                             </li>
                             <li>@Html.ActionLink("Inventory", "Index", "Inventory")</li>
                            
-
+                            @if (Request.IsAuthenticated)
+                            {
+                              
                             <li class="dropdown">
                                 <a href="contact.html" class="dropdown-toggle" data-toggle="dropdown">Admin</a>
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Report", "Index", "Report")</li>
-                                    <li>@Html.ActionLink("Up Load Inventory", "Create", "Inventory")</li>
+                                    <li>@Html.ActionLink("UpLoad Inventory", "Create", "Inventory")</li>
                                 </ul>
                             </li>
-                            
+                                
+                            }
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA TABLES </a>
                                 <!--<ul class="dropdown-menu">

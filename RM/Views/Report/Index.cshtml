@@ -58,13 +58,10 @@
             </table>
             @if (Model != null)
             {
-                int i = 1;
+
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>
-                                #
-                            </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.IPAddress)
                             </th>
@@ -102,9 +99,6 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    @i
-                                </td>
-                                <td>
                                     @Html.DisplayFor(modelItem => item.IPAddress)
                                 </td>
                                 <td>
@@ -136,7 +130,7 @@
                         </tbody>
                     }
                 </table>
-                i = i + 1;
+           
             }
             @if (Model != null)
             {

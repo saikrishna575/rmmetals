@@ -16,14 +16,17 @@ using PagedList;
 using Microsoft.AspNet.Identity;
 using System.Net.Mail;
 using System.Globalization;
+using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace RM.Controllers
 {
+    
     public class InventoryController : Controller
     {
         // GET: Product
-        [Authorize]
-        public ActionResult Index(int? page, int? Id, string sortOrder, string Pages, Inventory pro)
+       
+        public ActionResult Index(int? page, int? Id, string sortOrder, string Pages, Inventory pro,int? Export)
         {
             string submit = Request["submit"];
             ViewBag.Pages = Pages;
@@ -34,15 +37,23 @@ namespace RM.Controllers
             ViewBag.WidthSortParm = sortOrder == "Width" ? "Width_desc" : "Width";
             ViewBag.WTNETSortParm = sortOrder == "WTNET" ? "WTNET_desc" : "WTNET";
             ViewBag.NOOFPCSSortParm = sortOrder == "NOOFPCS" ? "NOOFPCS_desc" : "NOOFPCS";
+            
 
-            pro.ProductList = pro.ProductsList().ToList();
-
-            pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Equals(string.IsNullOrEmpty(pro.Loc) ? null : pro.Loc.ToUpper())).
-                Where(a => a.Type.ToUpper().Equals(string.IsNullOrEmpty(pro.Type) ? null : pro.Type.ToUpper())).
-                Where(a => a.Finish.ToUpper().Equals(string.IsNullOrEmpty(pro.Finish) ? null : pro.Finish.ToUpper())).
-                Where(a => a.Gauge.ToUpper().Equals(string.IsNullOrEmpty(pro.Gauge) ? null : pro.Gauge.ToUpper())).
-                Where(a => a.Width.ToUpper().Equals(string.IsNullOrEmpty(pro.Width) ? null : (pro.Width.ToUpper()))).
-                Where(a => a.WTNET.ToUpper().Equals(string.IsNullOrEmpty(pro.WTNET) ? null : (pro.WTNET.ToUpper()))).ToList();
+            if (string.IsNullOrEmpty(pro.Loc) && string.IsNullOrEmpty(pro.Type) && string.IsNullOrEmpty(pro.Finish) && string.IsNullOrEmpty(pro.Gauge) && string.IsNullOrEmpty(pro.Width) && string.IsNullOrEmpty(pro.WTNET))
+            {
+                pro.ProductList = new List<Inventory>();
+               
+            }
+            else
+            {
+                pro.ProductList = pro.ProductsList().ToList();
+                pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Contains(string.IsNullOrEmpty(pro.Loc) ? a.Loc.ToUpper() : pro.Loc.ToUpper())).
+                    Where(a => a.Type.ToUpper().Contains(string.IsNullOrEmpty(pro.Type) ? a.Type.ToUpper() : pro.Type.ToUpper())).
+                    Where(a => a.Finish.ToUpper().Contains(string.IsNullOrEmpty(pro.Finish) ? a.Finish.ToUpper() : pro.Finish.ToUpper())).
+                    Where(a => a.Gauge.ToUpper().Contains(string.IsNullOrEmpty(pro.Gauge) ? a.Gauge.ToUpper() : pro.Gauge.ToUpper())).
+                    Where(a => a.Width.ToUpper().Contains(string.IsNullOrEmpty(pro.Width) ? a.Width.ToUpper() : (pro.Width.ToUpper()))).
+                    Where(a => a.WTNET.ToUpper().Contains(string.IsNullOrEmpty(pro.WTNET) ? a.WTNET.ToUpper() : (pro.WTNET.ToUpper()))).ToList();
+            }
 
             //List Displayed only after searched in filters
 
@@ -63,6 +74,34 @@ namespace RM.Controllers
 
                 };
                 smtpClient.Send(message);
+
+            }
+
+            if(Export.HasValue)
+            {
+                var grid = new GridView();
+                grid.DataSource = from data in pro.ProductList
+                                  select new
+                                  {
+                                      Location = data.Loc,
+                                      Type = data.Type,
+                                      Finish = data.Finish,
+                                      Gauge = data.Gauge,
+                                      Width = data.Width,
+                                      WTNET = data.WTNET
+                                  };
+                grid.DataBind();
+                Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
+                Response.ContentType = "application/ms-excel";
+                Response.Charset = "";
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                grid.RenderControl(htw);
+
+                Response.Output.Write(sw.ToString());
+
+                Response.End();
 
             }
 
@@ -120,6 +159,9 @@ namespace RM.Controllers
             listitems.Add(new SelectListItem { Text = "100 items ", Value = "100" });
             listitems.Add(new SelectListItem { Text = "150 items ", Value = "150" });
             ViewBag.ListItems = listitems;
+
+           
+
             if (string.IsNullOrEmpty(Pages))
             {
                 pro.IPagedProductsList = pro.ProductList.ToPagedList(page ?? 1, 50);     //Default Paging is 50
@@ -174,16 +216,21 @@ namespace RM.Controllers
                 search.insert(search);
             }
 
-            pro.ProductList = pro.ProductsList().ToList();
+            if (string.IsNullOrEmpty(pro.Loc) && string.IsNullOrEmpty(pro.Type) && string.IsNullOrEmpty(pro.Finish) && string.IsNullOrEmpty(pro.Gauge) && string.IsNullOrEmpty(pro.Width) && string.IsNullOrEmpty(pro.WTNET))
+            {
+                pro.ProductList = new List<Inventory>();
 
-            pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Equals(string.IsNullOrEmpty(pro.Loc) ? null : pro.Loc.ToUpper())).
-                 Where(a => a.Type.ToUpper().Equals(pro.Type.ToUpper())).
-                 Where(a => a.Finish.ToUpper().Equals( pro.Finish.ToUpper())).
-                 Where(a => a.Gauge.ToUpper().Equals(pro.Gauge.ToUpper())).
-                 Where(a => a.Width.ToUpper().Equals((pro.Width.ToUpper()))).
-                 Where(a => a.WTNET.ToUpper().Equals((pro.WTNET.ToUpper()))).ToList();
-
-
+            }
+            else
+            {
+                pro.ProductList = pro.ProductsList().ToList();
+                pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Contains(string.IsNullOrEmpty(pro.Loc) ? a.Loc.ToUpper() : pro.Loc.ToUpper())).
+                    Where(a => a.Type.ToUpper().Contains(string.IsNullOrEmpty(pro.Type) ? a.Type.ToUpper() : pro.Type.ToUpper())).
+                    Where(a => a.Finish.ToUpper().Contains(string.IsNullOrEmpty(pro.Finish) ? a.Finish.ToUpper() : pro.Finish.ToUpper())).
+                    Where(a => a.Gauge.ToUpper().Contains(string.IsNullOrEmpty(pro.Gauge) ? a.Gauge.ToUpper() : pro.Gauge.ToUpper())).
+                    Where(a => a.Width.ToUpper().Contains(string.IsNullOrEmpty(pro.Width) ? a.Width.ToUpper() : (pro.Width.ToUpper()))).
+                    Where(a => a.WTNET.ToUpper().Contains(string.IsNullOrEmpty(pro.WTNET) ? a.WTNET.ToUpper() : (pro.WTNET.ToUpper()))).ToList();
+            }
 
 
 
@@ -319,85 +366,6 @@ namespace RM.Controllers
             return RedirectToAction("Index");
         }
 
-        public JsonResult GetLocation(string term)
-        {
-
-            Inventory pro = new Inventory();
-            List<string> Location;
-
-            pro.ProductList = pro.ProductsList();
-
-            Location = pro.ProductList.Where(a => a.Loc.StartsWith(term.ToUpper())).Select(b => b.Loc).Distinct().ToList();
-
-
-            return Json(Location, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult GetType(string term)
-        {
-
-            Inventory pro = new Inventory();
-            List<string> Type;
-
-            pro.ProductList = pro.ProductsList();
-
-            Type = pro.ProductList.Where(a => a.Type.StartsWith(term.ToUpper())).Select(b => b.Type).Distinct().ToList();
-
-
-            return Json(Type, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult GetFinish(string term)
-        {
-
-            Inventory pro = new Inventory();
-            List<string> Finish;
-
-            pro.ProductList = pro.ProductsList();
-
-            Finish = pro.ProductList.Where(a => a.Finish.StartsWith(term.ToUpper())).Select(b => b.Finish).Distinct().ToList();
-
-
-            return Json(Finish, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult GetGauge(string term)
-        {
-
-            Inventory pro = new Inventory();
-            List<string> Gauge;
-
-            pro.ProductList = pro.ProductsList();
-
-            Gauge = pro.ProductList.Where(a => a.Gauge.StartsWith(term.ToUpper())).Select(b => b.Gauge).Distinct().ToList();
-
-
-            return Json(Gauge, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult GetWidth(string term)
-        {
-
-            Inventory pro = new Inventory();
-            List<string> Width;
-
-            pro.ProductList = pro.ProductsList();
-
-            Width = pro.ProductList.Where(a => a.Width.StartsWith(term.ToUpper())).Select(b => b.Width).Distinct().ToList();
-
-
-            return Json(Width, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult GetWTNET(string term)
-        {
-
-            Inventory pro = new Inventory();
-            List<string> WTNET;
-
-            pro.ProductList = pro.ProductsList();
-
-            WTNET = pro.ProductList.Where(a => a.WTNET.StartsWith(term.ToUpper())).Select(b => b.WTNET).Distinct().ToList();
-
-
-            return Json(WTNET, JsonRequestBehavior.AllowGet);
-        }
-
-
+        
     }
 }

@@ -9,17 +9,18 @@ using RM.Models;
 using System.Globalization;
 using PagedList.Mvc;
 using PagedList;
-
 namespace RM.Controllers
 {
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {
+        {   
+               
             return View();
         }
         public ActionResult Temp()
         {
+
             return View();
         }
     }
