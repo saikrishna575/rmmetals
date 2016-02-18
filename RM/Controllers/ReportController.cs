@@ -52,14 +52,14 @@ namespace RM.Controllers
                 if (U.RadioButtonSelectedValue == "1")
                 {
                     U.UserTrackingList = U.UserTrackingReport();
-                    U.UserTrackingList = U.UserTrackingList.Where(a => a.TimeStamp >= startDate && a.TimeStamp <= EndDate).ToList();
+                    U.UserTrackingList = U.UserTrackingList.Where(a => a.TimeStamp >= startDate && a.TimeStamp <= EndDate).Where(a=>a.Name.Contains(string.IsNullOrEmpty(U.Name)? a.Name :U.Name)).ToList();
                     U.PagedUserTrackingList = U.UserTrackingList.ToPagedList(page ?? 1, 50); //Default Paging is 50
                     return View(U);
                 }
                 else
                 {
                     U.SearchedDataList = U.SearchDataReport();
-                    U.SearchedDataList = U.SearchedDataList.Where(a => a.TimeStamp >= startDate && a.TimeStamp <= EndDate).ToList();
+                    U.SearchedDataList = U.SearchedDataList.Where(a => a.TimeStamp >= startDate && a.TimeStamp <= EndDate).Where(a => a.Name.Contains(string.IsNullOrEmpty(U.Name) ? a.Name : U.Name)).ToList();
                     U.PagedUserTrackingList = U.SearchedDataList.ToPagedList(page ?? 1, 50); //Default Paging is 50
                     return View(U);
                 }
@@ -97,14 +97,14 @@ namespace RM.Controllers
             if (U.RadioButtonSelectedValue == "1")
             {
                 U.UserTrackingList = U.UserTrackingReport();
-                U.UserTrackingList = U.UserTrackingList.Where(a => a.TimeStamp >= startDate && a.TimeStamp <= EndDate).ToList();
+                U.UserTrackingList = U.UserTrackingList.Where(a => a.TimeStamp >= startDate && a.TimeStamp <= EndDate).Where(a => a.Name.Contains(string.IsNullOrEmpty(U.Name) ? a.Name : U.Name)).ToList();
                 U.PagedUserTrackingList = U.UserTrackingList.ToPagedList(page ?? 1, 50); //Default Paging is 50
                 return View(U);
             }
             else
             {
                 U.SearchedDataList = U.SearchDataReport();
-                U.SearchedDataList = U.SearchedDataList.Where(a => a.TimeStamp >= startDate && a.TimeStamp <= EndDate).ToList();
+                U.SearchedDataList = U.SearchedDataList.Where(a => a.TimeStamp >= startDate && a.TimeStamp <= EndDate).Where(a => a.Name.Contains(string.IsNullOrEmpty(U.Name) ? a.Name : U.Name)).ToList();
                 U.PagedUserTrackingList = U.SearchedDataList.ToPagedList(page ?? 1, 50);  //Default Paging is 50
                 return View(U);
             }
