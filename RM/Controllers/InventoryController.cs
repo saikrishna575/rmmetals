@@ -37,16 +37,14 @@ namespace RM.Controllers
 
             pro.ProductList = pro.ProductsList().ToList();
 
-            pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Equals(string.IsNullOrEmpty(pro.Loc) ? a.Loc : pro.Loc.ToUpper())).
-                Where(a => a.Type.ToUpper().Equals(string.IsNullOrEmpty(pro.Type) ? a.Type : pro.Type.ToUpper())).
-                Where(a => a.Finish.ToUpper().Equals(string.IsNullOrEmpty(pro.Finish) ? a.Finish : pro.Finish.ToUpper())).
-                Where(a => a.Gauge.ToUpper().Equals(string.IsNullOrEmpty(pro.Gauge) ? a.Gauge : pro.Gauge.ToUpper())).
-                Where(a => a.Width.ToUpper().Equals(string.IsNullOrEmpty(pro.Width) ? a.Width : (pro.Width.ToUpper()))).
-                Where(a => a.WTNET.ToUpper().Equals(string.IsNullOrEmpty(pro.WTNET) ? a.WTNET : (pro.WTNET.ToUpper()))).ToList();
+            pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Equals(string.IsNullOrEmpty(pro.Loc) ? null : pro.Loc.ToUpper())).
+                Where(a => a.Type.ToUpper().Equals(string.IsNullOrEmpty(pro.Type) ? null : pro.Type.ToUpper())).
+                Where(a => a.Finish.ToUpper().Equals(string.IsNullOrEmpty(pro.Finish) ? null : pro.Finish.ToUpper())).
+                Where(a => a.Gauge.ToUpper().Equals(string.IsNullOrEmpty(pro.Gauge) ? null : pro.Gauge.ToUpper())).
+                Where(a => a.Width.ToUpper().Equals(string.IsNullOrEmpty(pro.Width) ? null : (pro.Width.ToUpper()))).
+                Where(a => a.WTNET.ToUpper().Equals(string.IsNullOrEmpty(pro.WTNET) ? null : (pro.WTNET.ToUpper()))).ToList();
 
             //List Displayed only after searched in filters
-
-           
 
             if (Id.HasValue)
             {
@@ -61,7 +59,7 @@ namespace RM.Controllers
                 var message = new MailMessage("no-reply@suteki.co.uk", "admin@gmail.com")
                 {
                     Subject = "Requested Quote" + quote.product.Loc + quote.product.Type + quote.product.Finish + quote.product.Gauge + quote.product.Width +quote.product.WTNET+ quote.product.NOOFPCS,
-                    Body = "User Name " + User.Identity.GetUserName() + Environment.NewLine + "Phone Nubmer :" + quote.PhoneNumber + Environment.NewLine + "Ip Adderss:" + Request.ServerVariables["REMOTE_ADDR"]
+                    Body = "User Name " + User.Identity.GetUserName() + Environment.NewLine + "Phone Number :" + quote.PhoneNumber + Environment.NewLine + "IP Address:" + Request.ServerVariables["REMOTE_ADDR"]
 
                 };
                 smtpClient.Send(message);
@@ -178,22 +176,16 @@ namespace RM.Controllers
 
             pro.ProductList = pro.ProductsList().ToList();
 
-            //pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Contains(string.IsNullOrEmpty(pro.Loc) ? a.Loc : pro.Loc.ToUpper())).
-            //    Where(a => a.Type.ToUpper().Contains(string.IsNullOrEmpty(pro.Type) ? a.Type : pro.Type.ToUpper())).
-            //    Where(a => a.Finish.ToUpper().Contains(string.IsNullOrEmpty(pro.Finish) ? a.Finish : pro.Finish.ToUpper())).
-            //    Where(a => a.Gauge.ToUpper().Contains(string.IsNullOrEmpty(pro.Gauge) ? a.Gauge : pro.Gauge.ToUpper())).
-            //    Where(a => a.Width.ToUpper().Contains(string.IsNullOrEmpty(pro.Width) ? a.Width : (pro.Width.ToUpper()))).
-            //    Where(a => a.WTNET.ToUpper().Contains(string.IsNullOrEmpty(pro.WTNET) ? a.WTNET : (pro.WTNET.ToUpper()))).ToList();
+            pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Equals(string.IsNullOrEmpty(pro.Loc) ? null : pro.Loc.ToUpper())).
+                 Where(a => a.Type.ToUpper().Equals(pro.Type.ToUpper())).
+                 Where(a => a.Finish.ToUpper().Equals( pro.Finish.ToUpper())).
+                 Where(a => a.Gauge.ToUpper().Equals(pro.Gauge.ToUpper())).
+                 Where(a => a.Width.ToUpper().Equals((pro.Width.ToUpper()))).
+                 Where(a => a.WTNET.ToUpper().Equals((pro.WTNET.ToUpper()))).ToList();
 
 
-            //List Displayed only after searched in filters
 
-            pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Contains(pro.Loc.ToUpper())).
-            Where(a => a.Type.ToUpper().Contains(pro.Type.ToUpper())).
-            Where(a => a.Finish.ToUpper().Contains(pro.Finish.ToUpper())).
-            Where(a => a.Gauge.ToUpper().Contains(pro.Gauge.ToUpper())).
-            Where(a => a.Width.ToUpper().Contains(pro.Width.ToUpper())).
-            Where(a => a.WTNET.ToUpper().Contains(pro.WTNET.ToUpper())).ToList();
+
 
             List<SelectListItem> listitems = new List<SelectListItem>();
             listitems.Add(new SelectListItem { Text = "50 items ", Value = "50" });
@@ -327,50 +319,85 @@ namespace RM.Controllers
             return RedirectToAction("Index");
         }
 
-
-
-        // GET: Product/Edit/5
-        public ActionResult Edit(int id)
+        public JsonResult GetLocation(string term)
         {
-            return View();
+
+            Inventory pro = new Inventory();
+            List<string> Location;
+
+            pro.ProductList = pro.ProductsList();
+
+            Location = pro.ProductList.Where(a => a.Loc.StartsWith(term.ToUpper())).Select(b => b.Loc).Distinct().ToList();
+
+
+            return Json(Location, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetType(string term)
+        {
+
+            Inventory pro = new Inventory();
+            List<string> Type;
+
+            pro.ProductList = pro.ProductsList();
+
+            Type = pro.ProductList.Where(a => a.Type.StartsWith(term.ToUpper())).Select(b => b.Type).Distinct().ToList();
+
+
+            return Json(Type, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetFinish(string term)
+        {
+
+            Inventory pro = new Inventory();
+            List<string> Finish;
+
+            pro.ProductList = pro.ProductsList();
+
+            Finish = pro.ProductList.Where(a => a.Finish.StartsWith(term.ToUpper())).Select(b => b.Finish).Distinct().ToList();
+
+
+            return Json(Finish, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetGauge(string term)
+        {
+
+            Inventory pro = new Inventory();
+            List<string> Gauge;
+
+            pro.ProductList = pro.ProductsList();
+
+            Gauge = pro.ProductList.Where(a => a.Gauge.StartsWith(term.ToUpper())).Select(b => b.Gauge).Distinct().ToList();
+
+
+            return Json(Gauge, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetWidth(string term)
+        {
+
+            Inventory pro = new Inventory();
+            List<string> Width;
+
+            pro.ProductList = pro.ProductsList();
+
+            Width = pro.ProductList.Where(a => a.Width.StartsWith(term.ToUpper())).Select(b => b.Width).Distinct().ToList();
+
+
+            return Json(Width, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetWTNET(string term)
+        {
+
+            Inventory pro = new Inventory();
+            List<string> WTNET;
+
+            pro.ProductList = pro.ProductsList();
+
+            WTNET = pro.ProductList.Where(a => a.WTNET.StartsWith(term.ToUpper())).Select(b => b.WTNET).Distinct().ToList();
+
+
+            return Json(WTNET, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: Product/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Product/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
