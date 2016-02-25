@@ -27,153 +27,149 @@ namespace RM.Controllers
         // GET: Product
         public ActionResult Index(int? page, int? Id, string sortOrder, string Pages, Inventory pro, int? Export)
         {
-            if (ModelState.IsValid)
+            string submit = Request["submit"];
+            ViewBag.Pages = Pages;
+            ViewBag.LocSortParm = String.IsNullOrEmpty(sortOrder) ? "Loc_desc" : "";
+            ViewBag.TypeSortParm = sortOrder == "Type" ? "Type_desc" : "Type";
+            ViewBag.FinishSortParm = sortOrder == "Finish" ? "Finish_desc" : "Finish";
+            ViewBag.GaugeSortParm = sortOrder == "Gauge" ? "Gauge_desc" : "Gauge";
+            ViewBag.WidthSortParm = sortOrder == "Width" ? "Width_desc" : "Width";
+            ViewBag.WTNETSortParm = sortOrder == "WTNET" ? "WTNET_desc" : "WTNET";
+            ViewBag.NOOFPCSSortParm = sortOrder == "NOOFPCS" ? "NOOFPCS_desc" : "NOOFPCS";
+            if (string.IsNullOrEmpty(pro.Loc) && string.IsNullOrEmpty(pro.Type) && string.IsNullOrEmpty(pro.Finish) && string.IsNullOrEmpty(pro.Gauge) && string.IsNullOrEmpty(pro.Width) && string.IsNullOrEmpty(pro.WTNET))
             {
-                string submit = Request["submit"];
-                ViewBag.Pages = Pages;
-                ViewBag.LocSortParm = String.IsNullOrEmpty(sortOrder) ? "Loc_desc" : "";
-                ViewBag.TypeSortParm = sortOrder == "Type" ? "Type_desc" : "Type";
-                ViewBag.FinishSortParm = sortOrder == "Finish" ? "Finish_desc" : "Finish";
-                ViewBag.GaugeSortParm = sortOrder == "Gauge" ? "Gauge_desc" : "Gauge";
-                ViewBag.WidthSortParm = sortOrder == "Width" ? "Width_desc" : "Width";
-                ViewBag.WTNETSortParm = sortOrder == "WTNET" ? "WTNET_desc" : "WTNET";
-                ViewBag.NOOFPCSSortParm = sortOrder == "NOOFPCS" ? "NOOFPCS_desc" : "NOOFPCS";
-                if (string.IsNullOrEmpty(pro.Loc) && string.IsNullOrEmpty(pro.Type) && string.IsNullOrEmpty(pro.Finish) && string.IsNullOrEmpty(pro.Gauge) && string.IsNullOrEmpty(pro.Width) && string.IsNullOrEmpty(pro.WTNET))
-                {
-                    pro.ProductList = new List<Inventory>();
+                pro.ProductList = new List<Inventory>();
 
-                }
-                else
-                {
-                    pro.ProductList = pro.ProductsList().ToList();
-                    pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Contains(string.IsNullOrEmpty(pro.Loc) ? a.Loc.ToUpper() : pro.Loc.ToUpper())).
-                        Where(a => a.Type.ToUpper().Contains(string.IsNullOrEmpty(pro.Type) ? a.Type.ToUpper() : pro.Type.ToUpper())).
-                        Where(a => a.Finish.ToUpper().Contains(string.IsNullOrEmpty(pro.Finish) ? a.Finish.ToUpper() : pro.Finish.ToUpper())).
-                        Where(a => a.Gauge.ToUpper().Contains(string.IsNullOrEmpty(pro.Gauge) ? a.Gauge.ToUpper() : pro.Gauge.ToUpper())).
-                        Where(a => a.Width.ToUpper().Contains(string.IsNullOrEmpty(pro.Width) ? a.Width.ToUpper() : (pro.Width.ToUpper()))).
-                        Where(a => a.WTNET.ToUpper().Contains(string.IsNullOrEmpty(pro.WTNET) ? a.WTNET.ToUpper() : (pro.WTNET.ToUpper()))).ToList();
-                }
-
-                //List Displayed only after searched in filters
-
-                if (Id.HasValue)
-                {
-                    RequestedQuote quote = new RequestedQuote();
-                    quote = quote.GetData(User.Identity.GetUserId());
-                    quote.User_Id = User.Identity.GetUserId();
-                    quote.product = new Inventory();
-                    quote.product = quote.product.productDetails(Id.Value);
-                    quote.insert(quote);
-
-                    var smtpClient = new SmtpClient();
-                    var message = new MailMessage("no-reply@suteki.co.uk", "admin@gmail.com")
-                    {
-                        Subject = "Requested Quote" + quote.product.Loc + quote.product.Type + quote.product.Finish + quote.product.Gauge + quote.product.Width + quote.product.WTNET + quote.product.NOOFPCS,
-                        Body = "User Name " + User.Identity.GetUserName() + Environment.NewLine + "Phone Number :" + quote.PhoneNumber + Environment.NewLine + "IP Address:" + Request.ServerVariables["REMOTE_ADDR"]
-
-                    };
-                    smtpClient.Send(message);
-
-                }
-
-                if (Export.HasValue)
-                {
-                    var grid = new GridView();
-                    grid.DataSource = from data in pro.ProductList
-                                      select new
-                                      {
-                                          Location = data.Loc,
-                                          Type = data.Type,
-                                          Finish = data.Finish,
-                                          Gauge = data.Gauge,
-                                          Width = data.Width,
-                                          WTNET = data.WTNET
-                                      };
-                    grid.DataBind();
-                    Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
-                    Response.ContentType = "application/ms-excel";
-                    Response.Charset = "";
-                    StringWriter sw = new StringWriter();
-                    HtmlTextWriter htw = new HtmlTextWriter(sw);
-
-                    grid.RenderControl(htw);
-
-                    Response.Output.Write(sw.ToString());
-
-                    Response.End();
-
-                }
-
-                switch (sortOrder)
-                {
-                    case "Loc_desc":
-                        pro.ProductList = pro.ProductList.OrderByDescending(s => s.Loc).ToList();
-                        break;
-                    case "Finish":
-                        pro.ProductList = pro.ProductList.OrderBy(s => s.Finish).ToList();
-                        break;
-                    case "Finish_desc":
-                        pro.ProductList = pro.ProductList.OrderByDescending(s => s.Finish).ToList();
-                        break;
-                    case "Gauge":
-                        pro.ProductList = pro.ProductList.OrderBy(s => s.Gauge).ToList();
-                        break;
-                    case "Gauge_desc":
-                        pro.ProductList = pro.ProductList.OrderByDescending(s => s.Gauge).ToList();
-                        break;
-                    case "Type":
-                        pro.ProductList = pro.ProductList.OrderBy(s => s.Type).ToList();
-                        break;
-                    case "Type_desc":
-                        pro.ProductList = pro.ProductList.OrderByDescending(s => s.Type).ToList();
-                        break;
-                    case "Width":
-                        pro.ProductList = pro.ProductList.OrderBy(s => s.Width).ToList();
-                        break;
-                    case "Width_desc":
-                        pro.ProductList = pro.ProductList.OrderByDescending(s => s.Width).ToList();
-                        break;
-
-                    case "WTNET":
-                        pro.ProductList = pro.ProductList.OrderBy(s => s.WTNET).ToList();
-                        break;
-                    case "WTNET_desc":
-                        pro.ProductList = pro.ProductList.OrderByDescending(s => s.WTNET).ToList();
-                        break;
-
-                    case "NOOFPCS":
-                        pro.ProductList = pro.ProductList.OrderBy(s => s.NOOFPCS).ToList();
-                        break;
-                    case "NOOFPCS_desc":
-                        pro.ProductList = pro.ProductList.OrderByDescending(s => s.NOOFPCS).ToList();
-                        break;
-                    default:
-                        pro.ProductList = pro.ProductList.OrderBy(s => s.Loc).ToList();
-                        break;
-                }
-
-                List<SelectListItem> listitems = new List<SelectListItem>();
-
-                listitems.Add(new SelectListItem { Text = "50 items ", Value = "50" });
-                listitems.Add(new SelectListItem { Text = "100 items ", Value = "100" });
-                listitems.Add(new SelectListItem { Text = "150 items ", Value = "150" });
-                ViewBag.ListItems = listitems;
-
-
-
-                if (string.IsNullOrEmpty(Pages))
-                {
-                    pro.IPagedProductsList = pro.ProductList.ToPagedList(page ?? 1, 50);     //Default Paging is 50
-                    return View(pro);
-                }
-                else
-                {
-                    pro.IPagedProductsList = pro.ProductList.ToPagedList(page ?? 1, Convert.ToInt32(Pages));
-                    return View(pro);
-                }
+            }
+            else
+            {
+                pro.ProductList = pro.ProductsList().ToList();
+                pro.ProductList = pro.ProductList.Where(a => a.Loc.ToUpper().Contains(string.IsNullOrEmpty(pro.Loc) ? a.Loc.ToUpper() : pro.Loc.ToUpper())).
+                    Where(a => a.Type.ToUpper().Contains(string.IsNullOrEmpty(pro.Type) ? a.Type.ToUpper() : pro.Type.ToUpper())).
+                    Where(a => a.Finish.ToUpper().Contains(string.IsNullOrEmpty(pro.Finish) ? a.Finish.ToUpper() : pro.Finish.ToUpper())).
+                    Where(a => a.Gauge.ToUpper().Contains(string.IsNullOrEmpty(pro.Gauge) ? a.Gauge.ToUpper() : pro.Gauge.ToUpper())).
+                    Where(a => a.Width.ToUpper().Contains(string.IsNullOrEmpty(pro.Width) ? a.Width.ToUpper() : (pro.Width.ToUpper()))).
+                    Where(a => a.WTNET.ToUpper().Contains(string.IsNullOrEmpty(pro.WTNET) ? a.WTNET.ToUpper() : (pro.WTNET.ToUpper()))).ToList();
             }
 
-            return View(pro);
+            //List Displayed only after searched in filters
+
+            if (Id.HasValue)
+            {
+                RequestedQuote quote = new RequestedQuote();
+                quote = quote.GetData(User.Identity.GetUserId());
+                quote.User_Id = User.Identity.GetUserId();
+                quote.product = new Inventory();
+                quote.product = quote.product.productDetails(Id.Value);
+                quote.insert(quote);
+
+                var smtpClient = new SmtpClient();
+                var message = new MailMessage("no-reply@suteki.co.uk", "admin@gmail.com")
+                {
+                    Subject = "Requested Quote" + quote.product.Loc + quote.product.Type + quote.product.Finish + quote.product.Gauge + quote.product.Width + quote.product.WTNET + quote.product.NOOFPCS,
+                    Body = "User Name " + User.Identity.GetUserName() + Environment.NewLine + "Phone Number :" + quote.PhoneNumber + Environment.NewLine + "IP Address:" + Request.ServerVariables["REMOTE_ADDR"]
+
+                };
+                smtpClient.Send(message);
+
+            }
+
+            if (Export.HasValue)
+            {
+                var grid = new GridView();
+                grid.DataSource = from data in pro.ProductList
+                                  select new
+                                  {
+                                      Location = data.Loc,
+                                      Type = data.Type,
+                                      Finish = data.Finish,
+                                      Gauge = data.Gauge,
+                                      Width = data.Width,
+                                      WTNET = data.WTNET
+                                  };
+                grid.DataBind();
+                Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
+                Response.ContentType = "application/ms-excel";
+                Response.Charset = "";
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                grid.RenderControl(htw);
+
+                Response.Output.Write(sw.ToString());
+
+                Response.End();
+
+            }
+
+            switch (sortOrder)
+            {
+                case "Loc_desc":
+                    pro.ProductList = pro.ProductList.OrderByDescending(s => s.Loc).ToList();
+                    break;
+                case "Finish":
+                    pro.ProductList = pro.ProductList.OrderBy(s => s.Finish).ToList();
+                    break;
+                case "Finish_desc":
+                    pro.ProductList = pro.ProductList.OrderByDescending(s => s.Finish).ToList();
+                    break;
+                case "Gauge":
+                    pro.ProductList = pro.ProductList.OrderBy(s => s.Gauge).ToList();
+                    break;
+                case "Gauge_desc":
+                    pro.ProductList = pro.ProductList.OrderByDescending(s => s.Gauge).ToList();
+                    break;
+                case "Type":
+                    pro.ProductList = pro.ProductList.OrderBy(s => s.Type).ToList();
+                    break;
+                case "Type_desc":
+                    pro.ProductList = pro.ProductList.OrderByDescending(s => s.Type).ToList();
+                    break;
+                case "Width":
+                    pro.ProductList = pro.ProductList.OrderBy(s => s.Width).ToList();
+                    break;
+                case "Width_desc":
+                    pro.ProductList = pro.ProductList.OrderByDescending(s => s.Width).ToList();
+                    break;
+
+                case "WTNET":
+                    pro.ProductList = pro.ProductList.OrderBy(s => s.WTNET).ToList();
+                    break;
+                case "WTNET_desc":
+                    pro.ProductList = pro.ProductList.OrderByDescending(s => s.WTNET).ToList();
+                    break;
+
+                case "NOOFPCS":
+                    pro.ProductList = pro.ProductList.OrderBy(s => s.NOOFPCS).ToList();
+                    break;
+                case "NOOFPCS_desc":
+                    pro.ProductList = pro.ProductList.OrderByDescending(s => s.NOOFPCS).ToList();
+                    break;
+                default:
+                    pro.ProductList = pro.ProductList.OrderBy(s => s.Loc).ToList();
+                    break;
+            }
+
+            List<SelectListItem> listitems = new List<SelectListItem>();
+
+            listitems.Add(new SelectListItem { Text = "50 items ", Value = "50" });
+            listitems.Add(new SelectListItem { Text = "100 items ", Value = "100" });
+            listitems.Add(new SelectListItem { Text = "150 items ", Value = "150" });
+            ViewBag.ListItems = listitems;
+
+
+
+            if (string.IsNullOrEmpty(Pages))
+            {
+                pro.IPagedProductsList = pro.ProductList.ToPagedList(page ?? 1, 50);     //Default Paging is 50
+                return View(pro);
+            }
+            else
+            {
+                pro.IPagedProductsList = pro.ProductList.ToPagedList(page ?? 1, Convert.ToInt32(Pages));
+                return View(pro);
+            }
+
         }
         [HttpPost]
         public ActionResult Index(int? page, string Pages, Inventory pro)
