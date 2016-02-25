@@ -4,13 +4,25 @@
 
 @model Inventory
 
+@{
+    ViewBag.PageName = "Inventory";
+}
+
 <link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script type="text/javascript">
     $m = jQuery.noConflict();
 </script>
 <script type="text/javascript">
+
+    $m(document).ready(function () {
+
+
+    });
+
     $m(function () {
 
         $m('#Loc').autocomplete(
@@ -39,10 +51,10 @@
            });
     });
 
-    $(document).ready(function () {
-        $('#Pages').change(function () {
+    $m(document).ready(function () {
+        $m('#Pages').change(function () {
 
-            val = $(this).val();
+            val = $m(this).val();
             if (val == 20) {
                 window.location.href = '@Html.Raw( @Url.Action("index", "Inventory",new { Pages = 20,
                                        Loc = Model.Loc,
@@ -101,37 +113,43 @@
     <div class="bs-example" data-example-id="striped-table">
         <div class="table-responsive">
             <h2 class="wellcome">Inventory</h2>
+          
+              @Html.ValidationSummary(false,null , new { @class = "text-danger" })
+            
             @Html.ActionLink("Export To Excel", "Index", new
-             {
-                 Export = 1,
-                 Loc = Model.Loc,
-                 Type = Model.Type,
-                 Finish = Model.Finish,
-                 Gauge = Model.Gauge,
-                 Width = Model.Width,
-                 WTNET = Model.WTNET,
-                 Pages = Request.QueryString["Pages"],
-                 sortOrder = Request["sortOrder"]
-             })
+       {
+           Export = 1,
+           Loc = Model.Loc,
+           Type = Model.Type,
+           Finish = Model.Finish,
+           Gauge = Model.Gauge,
+           Width = Model.Width,
+           WTNET = Model.WTNET,
+           Pages = Request.QueryString["Pages"],
+           sortOrder = Request["sortOrder"]
+       })
 
 
 
             @if (Model != null)
             {
-                @Html.PagedListPager(Model.IPagedProductsList, page => Url.Action("Index", new
-{
-    page,
-    Loc = Model.Loc,
-    Type = Model.Type,
-    Finish = Model.Finish,
-    Gauge = Model.Gauge,
-    Width = Model.Width,
-    WTNET = Model.WTNET,
-    Pages = Request.QueryString["Pages"],
-    sortOrder = Request["sortOrder"]
-}),
-            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+                if (Model.IPagedProductsList != null)
+                {
+                    @Html.PagedListPager(Model.IPagedProductsList, page => Url.Action("Index", new
+           {
+               page,
+               Loc = Model.Loc,
+               Type = Model.Type,
+               Finish = Model.Finish,
+               Gauge = Model.Gauge,
+               Width = Model.Width,
+               WTNET = Model.WTNET,
+               Pages = Request.QueryString["Pages"],
+               sortOrder = Request["sortOrder"]
+           }),
+                     new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
 
+                }
             }
             <table class="table table-bordered table-hover">
                 <thead>
@@ -139,32 +157,36 @@
                     {
 
                         <tr>
+                            
                             <th>
+                                @Html.TextBoxFor(model => model.Loc, null, new { @placeholder = "Location", @class = "form-control" })
 
                             </th>
                             <th>
-                                @Html.TextBoxFor(model => model.Loc, null, new { @placeholder = "Location", @class = "form-control" })
-                            </th>
-                            <th>
                                 @Html.TextBoxFor(model => model.Type, null, new { @placeholder = " Type", @class = "form-control" })
+
                             </th>
                             <th>
                                 @Html.TextBoxFor(model => model.Finish, null, new { @placeholder = " Finish ", @class = "form-control" })
+
                             </th>
                             <th>
                                 @Html.TextBoxFor(model => model.Gauge, null, new { @placeholder = " Gauge ", @class = "form-control" })
+
                             </th>
                             <th>
                                 @Html.TextBoxFor(model => model.Width, null, new { @placeholder = " Width ", @class = "form-control" })
+
                             </th>
                             <th>
                                 @Html.TextBoxFor(model => model.WTNET, null, new { @placeholder = " WTNET ", @class = "form-control" })
+
                             </th>
                             <th>
                                 @Html.DropDownList("Pages", ViewBag.ListItems as IEnumerable<SelectListItem>, new { @class = "btn btn-default" })
                             </th>
                             <th>
-                                <input type="submit" name="submit" value="search" class="btn btn-default signin" />
+                                <input type="submit" name="submit" value="search" class="btn btn-default signin" style="background-color:orange;" />
                             </th>
 
                         </tr>
@@ -175,149 +197,146 @@
 
                 <thead>
                     <tr>
-                        <th>
-                            #
-                        </th>
+
                         <th>
                             @Html.ActionLink("Location", "Index", new
-               {
-                   Pages = ViewBag.Pages,
-                   sortOrder = ViewBag.LocSortParm,
-                   Loc = Model.Loc,
-                   Type = Model.Type,
-                   Finish = Model.Finish,
-                   Gauge = Model.Gauge,
-                   Width = Model.Width,
-                   WTNET = Model.WTNET
-               }, new { style = "color:white" })
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.LocSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
                             @Html.ActionLink("Type", "Index", new
-               {
-                   Pages = ViewBag.Pages,
-                   sortOrder = ViewBag.TypeSortParm,
-                   Loc = Model.Loc,
-                   Type = Model.Type,
-                   Finish = Model.Finish,
-                   Gauge = Model.Gauge,
-                   Width = Model.Width,
-                   WTNET = Model.WTNET
-               }, new { style = "color:white" })
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.TypeSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
                             @Html.ActionLink("Finish", "Index", new
-               {
-                   Pages = ViewBag.Pages,
-                   sortOrder = ViewBag.FinishSortParm,
-                   Loc = Model.Loc,
-                   Type = Model.Type,
-                   Finish = Model.Finish,
-                   Gauge = Model.Gauge,
-                   Width = Model.Width,
-                   WTNET = Model.WTNET
-               }, new { style = "color:white" })
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.FinishSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
                             @Html.ActionLink("Gauge", "Index", new
-               {
-                   Pages = ViewBag.Pages,
-                   sortOrder = ViewBag.GaugeSortParm,
-                   Loc = Model.Loc,
-                   Type = Model.Type,
-                   Finish = Model.Finish,
-                   Gauge = Model.Gauge,
-                   Width = Model.Width,
-                   WTNET = Model.WTNET
-               }, new { style = "color:white" })
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.GaugeSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
                             @Html.ActionLink("Width", "Index", new
-               {
-                   Pages = ViewBag.Pages,
-                   sortOrder = ViewBag.WidthSortParm,
-                   Loc = Model.Loc,
-                   Type = Model.Type,
-                   Finish = Model.Finish,
-                   Gauge = Model.Gauge,
-                   Width = Model.Width,
-                   WTNET = Model.WTNET
-               }, new { style = "color:white" })
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.WidthSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
                             @Html.ActionLink("WTNET", "Index", new
-               {
-                   Pages = ViewBag.Pages,
-                   sortOrder = ViewBag.WTNETSortParm,
-                   Loc = Model.Loc,
-                   Type = Model.Type,
-                   Finish = Model.Finish,
-                   Gauge = Model.Gauge,
-                   Width = Model.Width,
-                   WTNET = Model.WTNET
-               }, new { style = "color:white" })
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.WTNETSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
                         <th>
                             @Html.ActionLink("NOOFPCS", "Index", new
-               {
-                   Pages = ViewBag.Pages,
-                   sortOrder = ViewBag.NOOFPCSSortParm,
-                   Loc = Model.Loc,
-                   Type = Model.Type,
-                   Finish = Model.Finish,
-                   Gauge = Model.Gauge,
-                   Width = Model.Width,
-                   WTNET = Model.WTNET
-               }, new { style = "color:white" })
+                       {
+                           Pages = ViewBag.Pages,
+                           sortOrder = ViewBag.NOOFPCSSortParm,
+                           Loc = Model.Loc,
+                           Type = Model.Type,
+                           Finish = Model.Finish,
+                           Gauge = Model.Gauge,
+                           Width = Model.Width,
+                           WTNET = Model.WTNET
+                       }, new { style = "color:white" })
                         </th>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <th>
-                                Request Quote
-                            </th>
-                        }
+
+                        <th>
+                            Request Quote
+                        </th>
+
                     </tr>
                 </thead>
 
                 @if (Model != null)
-            {
-                foreach (var item in Model.IPagedProductsList)
                 {
-                        <tbody>
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Id)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Loc)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Type)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Finish)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Gauge)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Width)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.WTNET)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NOOFPCS)
-                                </td>
-
-                                @if (User.Identity.IsAuthenticated)
-                                {
+                    if (Model.IPagedProductsList != null)
+                    {
+                        foreach (var item in Model.IPagedProductsList)
+                        {
+                            <tbody>
+                                <tr>
                                     <td>
-                                        <input type="button" value="Request quote" class="btn btn-default signin" id="btnRequestQuote" onclick="if (confirm('Do you want to Request quote?')) { window.location.href = '@Url.Action("index", "Inventory", new { Id = item.Id })' }" />
+                                        @Html.DisplayFor(modelItem => item.Loc)
                                     </td>
-                                }
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Finish)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Gauge)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Width)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.WTNET)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NOOFPCS)
+                                    </td>
 
-                            </tr>
-                        </tbody>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <td>
+                                            <input type="button" value="Request quote" class="btn btn-default signin" id="btnRequestQuote" onclick="if (confirm('Do you want to Request quote?')) { window.location.href = '@Url.Action("index", "Inventory", new { Id = item.Id })' }" />
+                                        </td>
+                                    }
+
+                                </tr>
+                            </tbody>
+                        }
                     }
                 }
 
@@ -326,20 +345,24 @@
 
             @if (Model != null)
             {
-                @Html.PagedListPager(Model.IPagedProductsList, page => Url.Action("Index", new
-   {
-       page,
-       Loc = Model.Loc,
-       Type = Model.Type,
-       Finish = Model.Finish,
-       Gauge = Model.Gauge,
-       Width = Model.Width,
-       WTNET = Model.WTNET,
-       Pages = Request.QueryString["Pages"],
-       sortOrder = Request["sortOrder"]
-   }),
-            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+                if (Model.IPagedProductsList != null)
+                {
 
+                    @Html.PagedListPager(Model.IPagedProductsList, page => Url.Action("Index", new
+           {
+               page,
+               Loc = Model.Loc,
+               Type = Model.Type,
+               Finish = Model.Finish,
+               Gauge = Model.Gauge,
+               Width = Model.Width,
+               WTNET = Model.WTNET,
+               Pages = Request.QueryString["Pages"],
+               sortOrder = Request["sortOrder"]
+           }),
+                     new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+
+                }
             }
 
         </div>

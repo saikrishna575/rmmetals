@@ -7,16 +7,24 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList.Mvc;
 using PagedList;
+using System.ComponentModel.DataAnnotations;
+
 namespace RM.Models
 {
     public class Inventory
     {
         public int Id { get; set; }
+        [RegularExpression("^[0-9A-Za-z ]+$",ErrorMessage ="Enter Valid Location")]
         public string Loc { get; set; }
+        [RegularExpression("^[0-9A-Za-z ]+$",ErrorMessage="Enter Valid Type")]
         public string Type { get; set; }
+        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage ="Enter Valid Finish")]
         public string Finish { get; set; }
+        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage ="Enter Valid Gauge")]
         public string Gauge { get; set; }
+        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage ="Enter Valid Width")]
         public string Width { get; set; }
+        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage ="Enter Valid WTNET")]
         public string WTNET { get; set; }
         public string NOOFPCS { get; set; }      
         public string SelectedPage { get; set; }

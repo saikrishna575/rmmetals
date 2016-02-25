@@ -14,7 +14,7 @@ namespace RM.Models
 {
     public class UserTracking
     {
- 
+
         public int Id { get; set; }
         public string user_Id { get; set; }
         public string IPAddress { get; set; }
@@ -25,15 +25,14 @@ namespace RM.Models
         public string Email { get; set; }
 
         public string SearchedData { get; set; }
-
-        [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime EndDate
+        [DataType(DataType.DateTime)]
+        public string StartDate { get; set; }
+        [DataType(DataType.DateTime)]
+        public string EndDate
         {
             set;
             get;
-            
+
         }
         public int StartDateHours { get; set; }
         public int StartDateMinutes { get; set; }
@@ -48,34 +47,34 @@ namespace RM.Models
         public string RadioButtonSelectedValue { get; set; }
 
 
-       
-       
+
+
         public IEnumerable<SelectListItem> GetAmPm()
-        {     
-                List<SelectListItem> newlist = new List<SelectListItem>();
-                newlist.Add(new SelectListItem { Text = "AM", Value = "AM" });
-                newlist.Add(new SelectListItem { Text = "PM", Value = "PM" });
-                return newlist;
-           
+        {
+            List<SelectListItem> newlist = new List<SelectListItem>();
+            newlist.Add(new SelectListItem { Text = "AM", Value = "AM" });
+            newlist.Add(new SelectListItem { Text = "PM", Value = "PM" });
+            return newlist;
+
         }
         public IEnumerable<SelectListItem> GetHours()
         {
-           
-                List<SelectListItem> newlist = new List<SelectListItem>();
-                newlist.Add(new SelectListItem { Text = "1", Value = "1" });
-                newlist.Add(new SelectListItem { Text = "2", Value = "2" });
-                newlist.Add(new SelectListItem { Text = "3", Value = "3" });
-                newlist.Add(new SelectListItem { Text = "4", Value = "4" });
-                newlist.Add(new SelectListItem { Text = "5", Value = "5" });
-                newlist.Add(new SelectListItem { Text = "6", Value = "6" });
-                newlist.Add(new SelectListItem { Text = "7", Value = "7" });
-                newlist.Add(new SelectListItem { Text = "8", Value = "8" });
-                newlist.Add(new SelectListItem { Text = "9", Value = "9" });
-                newlist.Add(new SelectListItem { Text = "10", Value = "10" });
-                newlist.Add(new SelectListItem { Text = "11", Value = "11" });
-                newlist.Add(new SelectListItem { Text = "12", Value = "12" });
-                return newlist;
-            
+
+            List<SelectListItem> newlist = new List<SelectListItem>();
+            newlist.Add(new SelectListItem { Text = "1", Value = "1" });
+            newlist.Add(new SelectListItem { Text = "2", Value = "2" });
+            newlist.Add(new SelectListItem { Text = "3", Value = "3" });
+            newlist.Add(new SelectListItem { Text = "4", Value = "4" });
+            newlist.Add(new SelectListItem { Text = "5", Value = "5" });
+            newlist.Add(new SelectListItem { Text = "6", Value = "6" });
+            newlist.Add(new SelectListItem { Text = "7", Value = "7" });
+            newlist.Add(new SelectListItem { Text = "8", Value = "8" });
+            newlist.Add(new SelectListItem { Text = "9", Value = "9" });
+            newlist.Add(new SelectListItem { Text = "10", Value = "10" });
+            newlist.Add(new SelectListItem { Text = "11", Value = "11" });
+            newlist.Add(new SelectListItem { Text = "12", Value = "12" });
+            return newlist;
+
         }
 
         public IEnumerable<SelectListItem> GetMins()

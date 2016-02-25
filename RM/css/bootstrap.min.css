@@ -1065,7 +1065,7 @@ table {
 	background-color:transparent
 }
 th {
-	text-align:left
+	text-align:center;
 }
 .table {
 	width:100%;

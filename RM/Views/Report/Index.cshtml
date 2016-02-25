@@ -2,6 +2,12 @@
 @using PagedList.Mvc;
 @using RM.Models;
 @model UserTracking
+
+
+@{
+    ViewBag.PageName = "Admin";
+}
+
 @if (Model != null)
             {
     @Html.PagedListPager(Model.PagedUserTrackingList, page => Url.Action("Index", new
@@ -19,10 +25,30 @@
 }),
                         new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
 }
+<link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
+    $m = jQuery.noConflict();
+</script>
+<script type="text/javascript">
+
+    $m(document).ready(function () {
+
+        $m('#StartDate').datepicker();
+        $m('#EndDate').datepicker();        
+    });
+
+
+</script>
+
 <div class="col-md-12 col-sm-6 aboutus wow fadeInLeft animated" style="width:100%">
     <div class="bs-example" data-example-id="striped-table">
         <div class="table-responsive">
             <h2 class="wellcome">Reports</h2>
+
+            @Html.ValidationSummary(false, null, new { @class = "text-danger" })
             <table class="table table-bordered table-hover" border="0">
 
                 @using (@Html.BeginForm())
@@ -44,7 +70,7 @@
                             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter User Name" } })
                         </td>
 
-                       
+
                     </tr>
                             <tr>
                                 <td>
@@ -93,7 +119,7 @@
                         </tr>
                     </thead>
 
-                   
+
                     @foreach (var item in Model.PagedUserTrackingList)
                     {
                         <tbody>
@@ -130,7 +156,7 @@
                         </tbody>
                     }
                 </table>
-           
+
             }
             @if (Model != null)
             {
