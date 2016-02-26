@@ -363,13 +363,25 @@ namespace RM.Controllers
                         {
                             string conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                             MySqlConnection con = new MySqlConnection(conn);
-                            string query = "Insert into products(Loc,Type,Finish,Gauge,Width,WTNET,NOOFPCS) Values('" +
-                            ds.Tables[0].Rows[i][0].ToString() + "','" + ds.Tables[0].Rows[i][1].ToString() +
-                            "','" + ds.Tables[0].Rows[i][2].ToString() + "','" + ds.Tables[0].Rows[i][3].ToString() + "','" + ds.Tables[0].Rows[i][4].ToString() + "','" + ds.Tables[0].Rows[i][5].ToString() + "','" + ds.Tables[0].Rows[i][6].ToString() + "')";
-                            con.Open();
-                            MySqlCommand cmd = new MySqlCommand(query, con);
-                            cmd.ExecuteNonQuery();
-                            con.Close();
+
+                            if (!string.IsNullOrEmpty(ds.Tables[0].Rows[i][0].ToString()) &&
+                                !string.IsNullOrEmpty(ds.Tables[0].Rows[i][1].ToString()) &&
+                                !string.IsNullOrEmpty(ds.Tables[0].Rows[i][2].ToString()) &&
+                                !string.IsNullOrEmpty(ds.Tables[0].Rows[i][3].ToString()) &&
+                                !string.IsNullOrEmpty(ds.Tables[0].Rows[i][4].ToString()) &&
+                                !string.IsNullOrEmpty(ds.Tables[0].Rows[i][5].ToString()) &&
+                                !string.IsNullOrEmpty(ds.Tables[0].Rows[i][6].ToString()))
+                            {
+                                string query = "Insert into products(Loc,Type,Finish,Gauge,Width,WTNET,NOOFPCS) Values('" +
+                                 ds.Tables[0].Rows[i][0].ToString() + "','" + ds.Tables[0].Rows[i][1].ToString() +
+                                 "','" + ds.Tables[0].Rows[i][2].ToString() + "','" + ds.Tables[0].Rows[i][3].ToString() + "','"
+                                 + ds.Tables[0].Rows[i][4].ToString() + "','" +
+                                 ds.Tables[0].Rows[i][5].ToString() + "','" + ds.Tables[0].Rows[i][6].ToString() + "')";
+                                con.Open();
+                                MySqlCommand cmd = new MySqlCommand(query, con);
+                                cmd.ExecuteNonQuery();
+                                con.Close();
+                            }
                         }
                     }
                 }
