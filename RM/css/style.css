@@ -338,7 +338,7 @@ ul.navbar-nav li.active > .dropdown-menu > li.active > a{
 }
 
 #main-slide .carousel-control i{
-	background: rgba(136,136,136, 1);
+	/*background: rgba(136,136,136, 1);*/
 	color: #fff;
 	line-height: 36px;
 	font-size: 32px;
@@ -359,7 +359,7 @@ ul.navbar-nav li.active > .dropdown-menu > li.active > a{
 	font-size:30px;
 	font-weight: 100;
 	text-transform: uppercase;
-	background:rgba(231, 135, 19, 0.7);
+	/*background:rgba(231, 135, 19, 0.7);*/
 	margin: 0 auto;
 	width:72%;
 	padding:50px;

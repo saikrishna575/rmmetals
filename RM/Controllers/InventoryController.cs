@@ -382,7 +382,11 @@ namespace RM.Controllers
                                 cmd.ExecuteNonQuery();
                                 con.Close();
                             }
+
+
                         }
+
+                        ViewBag.ShowData = ds.Tables[0].Rows.Count;
                     }
                 }
                 catch (Exception ex)
@@ -390,7 +394,7 @@ namespace RM.Controllers
                     throw ex;
                 }
             }
-            return RedirectToAction("Index");
+            return View();
         }
 
         public JsonResult GetLocation(string term)

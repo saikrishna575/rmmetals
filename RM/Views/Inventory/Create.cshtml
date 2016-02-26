@@ -9,6 +9,11 @@
 {
     <div class="col-md-12 col-sm-6 aboutus wow fadeInLeft animated">
         <div class="bs-example" data-example-id="striped-table">
+
+            @if (ViewBag.ShowData != null)
+            {
+                <h3>@ViewBag.ShowData has Uploaded</h3>
+            }
             <h2 class="wellcome">Upload your excel file here</h2>
 
             <div style="position:relative;margin-bottom:15px ">

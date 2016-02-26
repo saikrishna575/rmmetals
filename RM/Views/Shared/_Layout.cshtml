@@ -77,7 +77,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand logo" href= '@Url.Action("Index", "Home")'>
+                        <a class="navbar-brand logo" href='@Url.Action("Index", "Home")'>
                             <img class="img-responsive" src="~/images/logo.png" alt="logo">
                         </a>
                     </div><!--/ Logo end -->
@@ -88,18 +88,18 @@
                                 @Html.ActionLink("Home", "Index", "Home")
                             </li>
                             <li id="Inventory" class="dropdown  @((ViewBag.PageName == "Inventory") ? "active" : "")">@Html.ActionLink("Inventory", "Index", "Inventory")</li>
-                           
+
                             @if (Request.IsAuthenticated)
                             {
-                              
-                            <li id="Admin" class="dropdown @((ViewBag.PageName == "Admin") ? "active" : "")">
-                                <a  class="dropdown-toggle" data-toggle="dropdown">Admin</a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Report", "Index", "Report")</li>
-                                    <li>@Html.ActionLink("UpLoad Inventory", "Create", "Inventory")</li>
-                                </ul>
-                            </li>
-                                
+
+                                <li id="Admin" class="dropdown @((ViewBag.PageName == "Admin") ? "active" : "")">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">Admin</a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Report", "Index", "Report")</li>
+                                        <li>@Html.ActionLink("UpLoad Inventory", "Create", "Inventory")</li>
+                                    </ul>
+                                </li>
+
                             }
                             <li class="dropdown ">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA TABLES </a>
@@ -115,7 +115,7 @@
                                        <li><a href="blog-item.html">Blog Single</a></li>
                                    </ul>-->
                             </li>
-                            
+
 
                         </ul>
                     </nav><!--/ Navigation end -->
@@ -130,7 +130,7 @@
 
     <scetion id="innercontent">
 
-      
+
 
 
         <section id="service" class="wow fadeInUp">
@@ -138,9 +138,9 @@
                 <div class="row">
 
                     @RenderBody()
-                    </div>
-
                 </div>
+
+            </div>
 
         </section>
 
@@ -149,8 +149,10 @@
 
         <section id="footer-wrapper">
             <!-- Footer top start -->
-            <footer id="footer">
-                <div class="container">
+            <footer id="footer" style="background-color:#f0f0f0;">
+                <div class="container" style="background-color:#054167;">
+                    <div style="height:15px;">
+                    </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-3 wow fadeInRight animated">
                             <div class="quicklinks">
@@ -228,17 +230,12 @@
                                         </div>
                                     </form>
                                     <button type="button" class="btn btn-primary submitbutton">Submit</button>
-                                </div>
+                                </div>                                
                             </div>
                         </div><!--/ end tweet -->
 
                     </div><!-- Row end -->
-                </div><!-- Container end -->
-            </footer><!-- Footer top end -->
-            <!-- Footer bottom start -->
-            <div class="footer-bottom">
-                <div class="container">
-                    <div class="row">
+                    <div class="row" style="background-color:#072d46;">
 
 
                         <div class="col-md-12 wow fadeInRight animated" style="visibility: visible;">
@@ -246,9 +243,23 @@
                                 Rights Reserved, RM METALS 2011-2016  Copyright</span>
                             </div>
                         </div>
-                    </div><!-- Row end -->
+                    </div>
                 </div><!-- Container end -->
-            </div><!-- Footer bottom end -->
+            </footer><!-- Footer top end -->
+            <!-- Footer bottom start -->
+            @*<div class="footer-bottom" style="background-color:#f0f0f0">
+                <div class="container" style="background-color:#054167;">
+                    @*<div class="row">
+
+
+                            <div class="col-md-12 wow fadeInRight animated" style="visibility: visible;">
+                                <div class="copyright-info">
+                                    Rights Reserved, RM METALS 2011-2016  Copyright</span>
+                                </div>
+                            </div>
+                        </div><!-- Row end -->
+                </div><!-- Container end -->
+            </div>*@<!-- Footer bottom end -->
         </section>
     </scetion>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -260,7 +271,7 @@
     <!-- SmoothScroll -->
     <script type="text/javascript" src="~/js/smoothscroll.js"></script>
 
-   
+
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

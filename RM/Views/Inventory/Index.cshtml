@@ -99,7 +99,7 @@
 
 
             <table class="table table-bordered table-hover">
-                <thead>
+                <thead style="background-color:white;border:none">
                     @using (Html.BeginForm("Index", "Inventory", new { Pages = ViewBag.Pages }, FormMethod.Post))
                     {
 
@@ -136,7 +136,11 @@
 
                     }
                 </thead>
-
+                <tr style="border:none;">
+                    <td colspan="9" style="border:none;"></td>
+                </tr>
+                @if (Model.ProductList.Count > 0)
+                {
                 <thead>
                     <tr>
 
@@ -239,7 +243,7 @@
                         }
                     </tr>
                 </thead>
-
+                }
                 @if (Model != null)
             {
                 foreach (var item in Model.IPagedProductsList)
@@ -273,15 +277,16 @@
                                 {
                                     <td>
                                         <input type="button" value="Request quote" class="btn btn-default signin" id="btnRequestQuote" onclick="if (confirm('Do you want to Request quote?'))
-                                                { window.location.href = '@Html.Raw(@Url.Action("index", "Inventory", new { Id = item.Id, 
+                                                { window.location.href = '@Html.Raw(@Url.Action("index", "Inventory", new { Id = item.Id,
                             Pages = Request.QueryString["Pages"],
-                          sortOrder = Request["sortOrder"],                     
+                          sortOrder = Request["sortOrder"],
                            Loc = Model.Loc,
                            Type = Model.Type,
                            Finish = Model.Finish,
                            Gauge = Model.Gauge,
                            Width = Model.Width,
                            WTNET = Model.WTNET }))' }" />
+                         
                                     </td>
                                 }
 

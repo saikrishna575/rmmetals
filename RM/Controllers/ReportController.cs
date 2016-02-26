@@ -20,13 +20,16 @@ namespace RM.Controllers
         public ActionResult Index(int? page, UserTracking U)
         {
             ModelState.Clear();
-            ModelState.SetModelValue("StartDate", new ValueProviderResult(DateTime.Today.ToString("MM-dd-yyyy"), null, CultureInfo.InvariantCulture));
-            ModelState.SetModelValue("EndDate", new ValueProviderResult(DateTime.Today.ToString("MM-dd-yyyy"), null, CultureInfo.InvariantCulture));
-            ModelState.SetModelValue("StartDateHours", new ValueProviderResult("7", null, CultureInfo.InvariantCulture));
-            ModelState.SetModelValue("EndDateHours", new ValueProviderResult("6", null, CultureInfo.InvariantCulture));
-            ModelState.SetModelValue("StartDateMinutes", new ValueProviderResult("00", null, CultureInfo.InvariantCulture));
-            ModelState.SetModelValue("EndDateMinutes", new ValueProviderResult("50", null, CultureInfo.InvariantCulture));
-            ModelState.SetModelValue("EndDateAmPm", new ValueProviderResult("Pm", null, CultureInfo.InvariantCulture));
+            if (!page.HasValue)
+            {
+                ModelState.SetModelValue("StartDate", new ValueProviderResult(DateTime.Today.ToString("MM-dd-yyyy"), null, CultureInfo.InvariantCulture));
+                ModelState.SetModelValue("EndDate", new ValueProviderResult(DateTime.Today.ToString("MM-dd-yyyy"), null, CultureInfo.InvariantCulture));
+                ModelState.SetModelValue("StartDateHours", new ValueProviderResult("7", null, CultureInfo.InvariantCulture));
+                ModelState.SetModelValue("EndDateHours", new ValueProviderResult("6", null, CultureInfo.InvariantCulture));
+                ModelState.SetModelValue("StartDateMinutes", new ValueProviderResult("00", null, CultureInfo.InvariantCulture));
+                ModelState.SetModelValue("EndDateMinutes", new ValueProviderResult("50", null, CultureInfo.InvariantCulture));
+                ModelState.SetModelValue("EndDateAmPm", new ValueProviderResult("Pm", null, CultureInfo.InvariantCulture));
+            }
             ViewBag.GetHours = U.GetHours();
             ViewBag.GetMins = U.GetMins();
             ViewBag.GetAmPm = U.GetAmPm();
