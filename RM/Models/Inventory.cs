@@ -11,94 +11,26 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RM.Models
 {
+    
     public class Inventory
     {
         public int Id { get; set; }
-        [RegularExpression("^[0-9A-Za-z ]+$",ErrorMessage ="Enter Valid Location")]
+        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage = "Enter Location Type")]
         public string Loc { get; set; }
-        [RegularExpression("^[0-9A-Za-z ]+$",ErrorMessage="Enter Valid Type")]
+        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage = "Enter Valid Type")]
         public string Type { get; set; }
-        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage ="Enter Valid Finish")]
+        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage = "Enter Valid Finish")]
         public string Finish { get; set; }
-        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage ="Enter Valid Gauge")]
+        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage = "Enter Valid Gauge")]
         public string Gauge { get; set; }
-        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage ="Enter Valid Width")]
+        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage = "Enter Valid Width")]
         public string Width { get; set; }
-        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage ="Enter Valid WTNET")]
+        [RegularExpression("^[0-9A-Za-z ]+$", ErrorMessage = "Enter Valid WTNET")]
         public string WTNET { get; set; }
-        public string NOOFPCS { get; set; }      
+        public string NOOFPCS { get; set; }
         public string SelectedPage { get; set; }
-        public List<Inventory>  ProductList { get; set; }
+        public List<Inventory> ProductList { get; set; }
         public IPagedList<Inventory> IPagedProductsList { get; set; }
-
-        public IEnumerable<SelectListItem> GetLocation()
-        {
-            Inventory pro = new Inventory();
-
-            pro.ProductList = pro.ProductsList();
-
-
-            var Location = pro.ProductList.Select(a => a.Loc).Distinct();
-           
-
-            return new SelectList(Location);
-        }
-        public IEnumerable<SelectListItem> GetType()
-        {
-            Inventory pro = new Inventory();
-
-            pro.ProductList = pro.ProductsList();
-
-
-            var Type = pro.ProductList.Select(a => a.Type).Distinct();
-
-            return new SelectList(Type);
-        }
-        public IEnumerable<SelectListItem> GetFinish()
-        {
-            Inventory pro = new Inventory();
-
-            pro.ProductList = pro.ProductsList();
-
-
-            var Finish = pro.ProductList.Select(a => a.Finish).Distinct();
-
-            return new SelectList(Finish);
-        }
-        public IEnumerable<SelectListItem> GetGauge()
-        {
-            Inventory pro = new Inventory();
-
-            pro.ProductList = pro.ProductsList();
-
-
-            var Gauge = pro.ProductList.Select(a =>a.Gauge).Distinct();
-
-            return new SelectList(Gauge);
-        }
-        public IEnumerable<SelectListItem> GetWidth()
-        {
-            Inventory pro = new Inventory();
-
-            pro.ProductList = pro.ProductsList();
-
-
-            var Width = pro.ProductList.Select(a => a.Width).Distinct();
-
-            return new SelectList(Width);
-        }
-        public IEnumerable<SelectListItem> GetWTNET()
-        {
-            Inventory pro = new Inventory();
-
-            pro.ProductList = pro.ProductsList();
-
-
-            var WTNET = pro.ProductList.Select(a =>a.WTNET).Distinct();
-
-            return new SelectList(WTNET);
-        }
-
         public List<SelectListItem> PageList
         {
             get
@@ -111,26 +43,21 @@ namespace RM.Models
                 };
             }
         }
-
-
         public IEnumerable<SelectListItem> GetPages()
         {
             return PageList.Select(a => new SelectListItem()
 
             {
-                Text= a.Text , Value = a.Value, Selected = (a.Value== SelectedPage)
+                Text = a.Text,
+                Value = a.Value,
+                Selected = (a.Value == SelectedPage)
             }
             );
-
         }
-
-
         public List<Inventory> ProductsList()
         {
             List<Inventory> productsListItems = new List<Inventory>();
-
             string cs = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-
             using (MySqlConnection con = new MySqlConnection(cs))
             {
                 con.Open();
@@ -151,13 +78,10 @@ namespace RM.Models
                     productsListItems.Add(products);
                 }
             }
-
             return productsListItems;
         }
-
         public Inventory productDetails(int id)
         {
-
             string cs = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
             using (MySqlConnection con = new MySqlConnection(cs))

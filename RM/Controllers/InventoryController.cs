@@ -22,11 +22,13 @@ using System.Web.Configuration;
 
 namespace RM.Controllers
 {
+    [Authorize]
     public class InventoryController : Controller
     {
         // GET: Product
         public ActionResult Index(int? page, int? Id, string sortOrder, string Pages, Inventory pro, int? Export)
         {
+            ModelState.Clear();
             string submit = Request["submit"];
             ViewBag.Pages = Pages;
             ViewBag.LocSortParm = String.IsNullOrEmpty(sortOrder) ? "Loc_desc" : "";
@@ -174,19 +176,17 @@ namespace RM.Controllers
         [HttpPost]
         public ActionResult Index(int? page, string Pages, Inventory pro)
         {
-
             List<SelectListItem> listitems = new List<SelectListItem>();
             listitems.Add(new SelectListItem { Text = "50 items ", Value = "50" });
             listitems.Add(new SelectListItem { Text = "100 items ", Value = "100" });
             listitems.Add(new SelectListItem { Text = "150 items ", Value = "150" });
             ViewBag.ListItems = listitems;
 
+
             if (ModelState.IsValid)
             {
-                string submit = Request["submit"];
+                  string submit = Request["submit"];
                 Dictionary<int, string> searchData = new Dictionary<int, string>();
-
-
 
                 if (!(string.IsNullOrEmpty(pro.Loc)))
                 {
@@ -239,9 +239,6 @@ namespace RM.Controllers
                         Where(a => a.WTNET.ToUpper().Contains(string.IsNullOrEmpty(pro.WTNET) ? a.WTNET.ToUpper() : (pro.WTNET.ToUpper()))).ToList();
                 }
 
-
-
-
                 if (string.IsNullOrEmpty(Pages))
                 {
 
@@ -259,6 +256,8 @@ namespace RM.Controllers
                 return View(pro);
             }
         }
+
+
         public ActionResult Details(int id)
         {
             return View();

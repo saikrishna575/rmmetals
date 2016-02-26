@@ -23,11 +23,10 @@ namespace RM.Models
         public string CompanyName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-
         public string SearchedData { get; set; }
-        [DataType(DataType.DateTime)]
+        [Required]       
         public string StartDate { get; set; }
-        [DataType(DataType.DateTime)]
+        [Required]
         public string EndDate
         {
             set;
