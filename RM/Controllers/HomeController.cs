@@ -18,7 +18,26 @@ namespace RM.Controllers
                
             return View();
         }
-        public ActionResult Temp()
+        public ActionResult Policies()
+        {
+
+            return View();
+        }
+
+        public ActionResult DataTables()
+        {
+
+            return View();
+        }
+
+
+        public ActionResult LocalDistribution()
+        {
+
+            return View();
+        }
+
+        public ActionResult ExportSales()
         {
 
             return View();

@@ -68,9 +68,10 @@ namespace RM.Controllers
                 var smtpClient = new SmtpClient();
                 var message = new MailMessage("no-reply@suteki.co.uk", "admin@gmail.com")
                 {
-                    Subject = "Requested Quote" + quote.product.Loc + quote.product.Type + quote.product.Finish + quote.product.Gauge + quote.product.Width + quote.product.WTNET + quote.product.NOOFPCS,
-                    Body = "User Name " + User.Identity.GetUserName() + Environment.NewLine + "Phone Number :" + quote.PhoneNumber + Environment.NewLine + "IP Address:" + Request.ServerVariables["REMOTE_ADDR"]
-
+                    Subject = "Requested Quote",
+                     Body = "User Name " + User.Identity.GetUserName() + Environment.NewLine + "Phone Number :" + quote.PhoneNumber + Environment.NewLine + "IP Address:" + Request.ServerVariables["REMOTE_ADDR"] 
+                     + Environment.NewLine + "Location : " + quote.product.Loc + "Type : " + quote.product.Type + "Finish : " +quote.product.Finish + quote.product.Gauge
+                     + quote.product.Width + quote.product.WTNET + quote.product.NOOFPCS
                 };
                 smtpClient.Send(message);
 

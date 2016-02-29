@@ -1,0 +1,638 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.PageName = "Policies";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>RM-Metals</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- Template styles-->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Animation -->
+    <link rel="stylesheet" href="~/css/animate.css">
+
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="~/css/owl.carousel.css">
+    <!-- Bxslider -->
+    <link rel="stylesheet" href="~/css/jquery.bxslider.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="~/js/html5shiv.js"></script>
+      <script src="~/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <!-- Header start -->
+    <header id="header" class="navbar-fixed-top main-nav" role="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 heade_bg">
+                    <!--/ Top info start -->
+                    <div class="top-info">
+                        <ul class="pull-right">
+                            <!-- Social links -->
+                            <li class="social-icon">
+                                <a id="tooltip2" data-toggle="tooltip" data-placement="top" title="Facebook" href="#">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a id="tooltip1" data-toggle="tooltip" data-placement="top" title="Twitter" href="https://twitter.com/RMCreations1">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a id="tooltip3" href="#" data-toggle="tooltip" data-placement="top" title="Google+">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                                <a id="tooltip4" href="#" data-toggle="tooltip" data-placement="top" title="Dribble">
+                                    <i class="fa fa-skype"></i>
+                                </a>
+                                <a id="tooltip2" data-toggle="tooltip" data-placement="top" title="Facebook" href="#">
+                                    <i class="fa fa-comments"></i>
+                                </a>
+
+
+                            </li><!-- Social links end-->
+                            @Html.Partial("_LoginPartial")
+
+                        </ul>
+                    </div><!--/ Top info end -->
+                    <!-- Logo start -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand logo" href='@Url.Action("Index", "Home")'>
+                            <img class="img-responsive" src="~/images/logo.png" alt="logo">
+                        </a>
+                    </div><!--/ Logo end -->
+
+                    <nav class="collapse navbar-collapse clearfix" role="navigation">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="home" class="dropdown  @((ViewBag.PageName == "home") ? "active" : "")">
+                                @Html.ActionLink("Home", "Index", "Home")
+                            </li>
+                            <li id="Inventory" class="dropdown  @((ViewBag.PageName == "Inventory") ? "active" : "")">@Html.ActionLink("Inventory", "Index", "Inventory")</li>
+
+                            @if (Request.IsAuthenticated)
+                            {
+
+                                <li id="Admin" class="dropdown @((ViewBag.PageName == "Admin") ? "active" : "")">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">Admin</a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Report", "Index", "Report")</li>
+                                        <li>@Html.ActionLink("UpLoad Inventory", "Create", "Inventory")</li>
+                                    </ul>
+                                </li>
+
+                            }
+                            <li class="dropdown @((ViewBag.PageName == "Data Tables") ? "active" : "")">@Html.ActionLink("Data Tables", "DataTables", "Home") </li>
+
+                            <li class="dropdown @((ViewBag.PageName == "Policies") ? "active" : "")">@Html.ActionLink("Policies", "Policies", "Home") </li>
+
+
+                        </ul>
+                    </nav><!--/ Navigation end -->
+
+
+                </div><!--/ Col end -->
+            </div><!--/ Row end -->
+        </div><!--/ Container end -->
+    </header><!--/ Header end -->
+    <scetion id="innercontent">
+
+
+        <section id="service" class="wow fadeInUp">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-8 col-sm-6 aboutus wow fadeInLeft animated">
+                        <h2 class="wellcome">About us</h2>
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                            1) DEFINITIONS
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        As used in these Terms and Conditions,
+                                        <ul>
+                                            <li>a. "Seller" shall mean RM Creations Inc. any affiliate thereof selling goods hereunder, and</li>
+                                            <li>b. "Buyer" shall mean the person or entity identified on the face hearof.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- .panel -->
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                            2) DELIVERY, RISK OF LOSS AND TITLE
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul>
+                                            <li>
+                                                a.	Unless otherwise specified on the face hereof, all deliveries shall be F.O.B. Seller's point of shipment. Freight shall be paid by Buyer to ultimate points of destination unless otherwise specified on the face here of/
+                                            </li>
+                                            <li>b.	As an accommodation to Buyer, Seller will attempt to comply with Buyer's request as to method and route of transportation, but Seller reserves the right, if such method or route of transportation is not reasonably available to use an alternate method or route of transportation, whether or not at a higher rate.</li>
+                                            <li>c.	Estimated dates for shipping and rendering services are approximate and are provided to Buyer on the basis of Seller's estimate for information purposes only, and they are not guaranteed. Seller shall not be held liable for loss or damage resulting from Force Majeure, as defined more fully in Paragraph 3 of these Standard</li>
+                                            <li>d.	Risk of loss shall pass to Buyer upon Seller's delivery to carrier or upon tender to Buyer's agent, whichever first occurs.</li>
+                                            <li>e.	Buyer hereby grants to Seller a security interest in all goods subject to this purchase Order (except for work done by Seller on Buyer's goods) and in all proceeds thereof, until the complete purchase price and all additional costs and charges, as adjusted, are paid to Buyer.</li>
+                                            <li>f.	Buyer shall be responsible for filing and pursuing claims with carries for loss or damage in transit.</li>
+                                            <li>g.	Responsibility for obtaining necessary transportation permits, if any, shall be with the Buyer, unless otherwise assumed by Seller</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- .panel -->
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                            3) FORCE MAJEURE
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <p>Seller shall not be held liable or deemed to be in default hereunder for failure to make deliveries or delay in deliveries if such failure or delay is caused by strikes, lockouts, other labor controversies or by fire, flood, the elements, acts of God, war,governmental action, inability to obtain supplies or labor or by other contingencies beyond the control of Seller, whether or not similar to those specifically enumerated.</p>
+                                    </div>
+                                </div>
+                            </div> <!-- .panel -->
+                        </div> <!-- .panel-group -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                        4) PACKAGING, LOADING OR BRACING REQUESTS
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFour" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>Seller will use all reasonable means to comply with any packaging, loading or bracing requests made by Buyer. Any extra costs due to compliance with such requests shall be charged to Buyer. If no packaging, loading or bracing requests are made by Buyer, Seller shall comply with the minimum requirements customarily applying to the method of transportation used for such products.</p>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                                        5) INSPECTION
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFive" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>Buyer shall inspect or cause the goods to be inspected upon delivery. Buyer must accept any tender of goods by Seller substantially in conformity with the terms hereof. Buyer will be deemed to have accepted tender of goods if Buyer fails to give Seller written notice of rejection within 30 days after the goods delivery. Any notice of rejection shall describe the rejected goods and the defects upon which rejection is based.</p>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+                                        6) LIMITED WARRANTIES
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseSix" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>
+                                        There are no understandings, terms, conditions or warranties not fully expressed herein.Seller warrants title to and freedom from encumbrance of the goods sold hereunder, and that such goods conform to thedescription set forth on the face hereof. Seller makes no other warranty whatever, express or implied.<br>
+                                        ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND ALL IMPLIED WARRANTIES OF FITNESS FOR ANY PARTICULAR PURPOSE ARE DISCLAIMED BY SELLER AND EXCLUDED.
+                                    </p>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+                                        7) LIMITATION OF BUYER'S REMEDIES
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseSeven" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>Seller's liability hereunder shall be limited to the obligation to repair or replace products proven to have failed to meet the specifications set forth on the face hereof or to have been defective in quality or workmanship at the time of delivery, or allow credit therefore, at its option. Seller's total cumulative liability in any way arising from or pertaining to any product sold or required to be sold under this Agreement shall not in any case exceed the purchase price paid by Buyer for such product. In no event shall Seller have any liability for commercial loss, claims for labor, or consequential damages of any other type. It is expressly agreed that Buyer's remedies expressed in this paragraph are Buyer's exclusive remedies.</p>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
+                                        8) CLAIMS BY BUYER
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseEight" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>Claims by Buyer must be made within 30 days of receipt of shipment, which Buyer and Seller agree is a reasonable time, or Buyer's claims shall be barred. In addition, Seller must be given an opportunity to investigate the claim before Buyer disposes of the material or else Buyer's claim will be barred. Seller shall incur no liability for damage, shortages, or other cause alleged to have occurred or existed at or prior to the carrier unless Buyer shall have entered full details thereof, on its receipt to the carrier.</p>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">
+                                        9) PERMISSIBLE VARIATION
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseNine" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>The goods sold hereunder shall be subject to standard manufacturing variations, tolerances and classifications. A variation between Seller's and Buyer's scale weight or theoretical weight determination up to 1% constitutes a permissible variation.</p>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+
+
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">
+                                        10) PAYMENT TERMS
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTen" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li>All payments shall be made in U.S. Dollars.</li>
+                                        <li>Terms of payment are as set forth on the face hereof. In the absence of such terms on the face hereof, payment terms shall be net 30 days from the date of invoice and amounts unpaid thereafter shall accrue interest compounded monthly at the rate of 1.5% per month or the maximum legal rate, whichever is lower.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+
+
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseLeven">
+                                        11) APPLICABLE LAW AND SEVERABILITY
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseLeven" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>These Terms and Conditions shall be governed by, and construed and enforced in accordance with the laws of the State of NJ. If any clause or provision of these Terms and Conditions shall be held in violation of applicable law, or otherwise invalid or unenforceable, these Terms and Conditions shall b e interpreted as if such provisions were limited to the extent legally permitted or, if such a clause or provisions shall be prohibited in its entirety, it shall be null and void and these Terms and Conditions as so modified shall remain in full force and effect.</p>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve">
+                                        12) TAXES
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwelve" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>No tax imposed in respect of the sale of the products sold hereunder is included in any quotation by Seller. Any such tax shall be added to and paid by Buyer as part of the purchase price.</p>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThirteen">
+                                        13)	WAIVER OF BREACH
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThirteen" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>The waiver by the Seller of a breach of any provision of these Terms and Conditions by Buyer shall not operate or be construed as a waiver of any subsequent breach by Buyer.</p>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFourteen ">
+                                        14) BINDING EFFECT
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFourteen" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>These Terms and Conditions shall be binding upon and inure to the benefit of the parties hereto and their respective heirs, administrators, successors and assigns.</p>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFifteen  ">
+                                        15) CONFLICTING PROVISIONS OFFERED BY BUYER
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFifteen" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>Any terms and conditions of any Purchase Order or other instrument issued by Buyer, in connection with the subject matter of this invoice, which are in addition to or inconsistent with the terms and conditions expressed herein, will not be binding upon Seller in any manner whatsoever unless accepted by Seller in writing.</p>
+                                </div>
+                            </div>
+                        </div> <!-- .panel -->
+                    <br />
+                    </div> <!-- .panel-group -->
+
+
+                
+                <div class="col-md-4 col-sm-6 wow fadeInLeft animated">
+                    <h2 class="wellcome">Testimonials</h2>
+                    <div id="tcb-testimonial-carousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                        <figure class="clearfix">
+                                            <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client1.jpg"> </div>
+
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                        <figure class="clearfix">
+                                            <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client2.jpg"> </div>
+
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                        <figure class="clearfix">
+                                            <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client3.jpg"> </div>
+
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                        <figure class="clearfix">
+                                            <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client4.jpg"> </div>
+
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                        <figure class="clearfix">
+                                            <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client5.jpg"> </div>
+
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                        <figure class="clearfix">
+                                            <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client6.jpg"> </div>
+
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                        <figure class="clearfix">
+                                            <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client7.jpg"> </div>
+
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                        <figure class="clearfix">
+                                            <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client8.jpg"> </div>
+
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                        <figure class="clearfix">
+                                            <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client9.jpg"> </div>
+
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+        </section>
+
+
+
+        <section id="footer-wrapper">
+            <!-- Footer top start -->
+            <footer id="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+                            <div class="quicklinks">
+                                <h3 class="footer-title">Quick Links</h3>
+
+
+                                <ul>
+                                    <li><a href="#">HOME </a></li>
+                                    <li><a href="#">LOCAL DISTRIBUTION</a></li>
+                                    <li><a href="#">EXPORT SALES   </a></li>
+                                    <li><a href="#">INVENTORY</a></li>
+                                    <li><a href="#">DATA TABLES   </a></li>
+                                    <li><a href="#">POLICIES   </a></li>
+                                </ul>
+
+
+                            </div>
+                        </div><!--/ end about us -->
+
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+                            <div class="quicklinks">
+                                <h3 class="footer-title">Quick Links</h3>
+                                <ul>
+                                    <li><a href="#">HOME </a></li>
+                                    <li><a href="#">LOCAL DISTRIBUTION</a></li>
+                                    <li><a href="#">EXPORT SALES   </a></li>
+                                    <li><a href="#">INVENTORY</a></li>
+                                    <li><a href="#">DATA TABLES   </a></li>
+                                    <li><a href="#">POLICIES   </a></li>
+                                </ul>
+                            </div>
+                        </div><!--/ end recent post -->
+
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+
+                            <h3 class="footer-title">contact Us</h3>
+                            <div class="contactaddress">
+
+                                <address>
+                                    <ul class="list-unstyled">
+                                        <li class="footer-sprite address">
+                                            50 Cragwood Road, Suite 308<br>
+                                            South Plainfield, NJ 07080<br>
+                                            USA<br>
+                                        </li>
+                                        <li class="footer-sprite phone">
+                                            Tel : 001 (908) 222-1500
+                                        </li>
+                                        <li class="footer-sprite email">
+                                            <a href="mailto: rmmetals@gmail.com"> rmmetals@gmail.com</a>
+                                        </li>
+                                    </ul>
+                                </address>
+
+                            </div>
+
+                        </div><!--/ end flickr -->
+
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+                            <div class="footer-icons">
+                                <h3 class="footer-title">Fallow Us</h3>
+                                <p class="footer-social">
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                    <a href="#"><i class="fa fa-skype"></i></a>
+                                    <a href="#"><i class="fa fa-comments"></i></a>
+
+                                </p>
+                                <div class="newsletter">
+                                    <h4>Newsletter subscription</h4>
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control emailform" id="email" value="E-mail">
+                                        </div>
+                                    </form>
+                                    <button type="button" class="btn btn-primary submitbutton">Submit</button>
+                                </div>
+                            </div>
+                        </div><!--/ end tweet -->
+
+                    </div><!-- Row end -->
+                </div><!-- Container end -->
+            </footer><!-- Footer top end -->
+            <!-- Footer bottom start -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+
+
+                        <div class="col-md-12 wow fadeInRight animated" style="visibility: visible;">
+                            <div class="copyright-info">
+                                Rights Reserved, RM METALS 2011-2016  Copyright</span>
+                            </div>
+                        </div>
+                    </div><!-- Row end -->
+                </div><!-- Container end -->
+            </div><!-- Footer bottom end -->
+        </section>
+    </scetion>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <!-- Owl Carousel -->
+    <script type="text/javascript" src="~/js/owl.carousel.js"></script>
+    <!-- SmoothScroll -->
+    <script type="text/javascript" src="~/js/smoothscroll.js"></script>
+
+</body>
+</html>

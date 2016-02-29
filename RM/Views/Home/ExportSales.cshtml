@@ -1,0 +1,476 @@
+﻿
+@{
+    Layout = null;
+    
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>RM-Metals</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- Template styles-->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Animation -->
+    <link rel="stylesheet" href="~/css/animate.css">
+
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="~/css/owl.carousel.css">
+    <!-- Bxslider -->
+    <link rel="stylesheet" href="~/css/jquery.bxslider.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="~/js/html5shiv.js"></script>
+      <script src="~/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <!-- Header start -->
+    <header id="header" class="navbar-fixed-top main-nav" role="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 heade_bg">
+                    <!--/ Top info start -->
+                    <div class="top-info">
+                        <ul class="pull-right">
+                            <!-- Social links -->
+                            <li class="social-icon">
+                                <a id="tooltip2" data-toggle="tooltip" data-placement="top" title="Facebook" href="#">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a id="tooltip1" data-toggle="tooltip" data-placement="top" title="Twitter" href="https://twitter.com/RMCreations1">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a id="tooltip3" href="#" data-toggle="tooltip" data-placement="top" title="Google+">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                                <a id="tooltip4" href="#" data-toggle="tooltip" data-placement="top" title="Dribble">
+                                    <i class="fa fa-skype"></i>
+                                </a>
+                                <a id="tooltip2" data-toggle="tooltip" data-placement="top" title="Facebook" href="#">
+                                    <i class="fa fa-comments"></i>
+                                </a>
+
+
+                            </li><!-- Social links end-->
+                            @Html.Partial("_LoginPartial")
+
+                        </ul>
+                    </div><!--/ Top info end -->
+                    <!-- Logo start -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand logo" href='@Url.Action("Index", "Home")'>
+                            <img class="img-responsive" src="~/images/logo.png" alt="logo">
+                        </a>
+                    </div><!--/ Logo end -->
+
+                    <nav class="collapse navbar-collapse clearfix" role="navigation">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="home" class="dropdown  @((ViewBag.PageName == "home") ? "active" : "")">
+                                @Html.ActionLink("Home", "Index", "Home")
+                            </li>
+                            <li id="Inventory" class="dropdown  @((ViewBag.PageName == "Inventory") ? "active" : "")">@Html.ActionLink("Inventory", "Index", "Inventory")</li>
+
+                            @if (Request.IsAuthenticated)
+                            {
+
+                                <li id="Admin" class="dropdown @((ViewBag.PageName == "Admin") ? "active" : "")">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">Admin</a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Report", "Index", "Report")</li>
+                                        <li>@Html.ActionLink("UpLoad Inventory", "Create", "Inventory")</li>
+                                    </ul>
+                                </li>
+
+                            }
+                            <li class="dropdown @((ViewBag.PageName == "Data Tables") ? "active" : "")">@Html.ActionLink("Data Tables", "DataTables", "Home") </li>
+
+                            <li class="dropdown @((ViewBag.PageName == "Policies") ? "active" : "")">@Html.ActionLink("Policies", "Policies", "Home") </li>
+
+
+                        </ul>
+                    </nav><!--/ Navigation end -->
+
+
+                </div><!--/ Col end -->
+            </div><!--/ Row end -->
+        </div><!--/ Container end -->
+    </header><!--/ Header end -->
+    <scetion id="innercontent">
+
+
+        <section id="service" class="wow fadeInUp">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-8 col-sm-6 aboutus wow fadeInLeft animated">
+                        <h2 class="wellcome"> Export Sales</h2>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <h4>Export Product line</h4>
+                                <p><strong>Usables:</strong></p>
+                                <p>Secondary carbon steel pup coils</p>
+                                <p>Secondary carbon steel master coils</p>
+                                <p>Secondary carbon steel plates</p>
+                                <p>Secondary carbon steel bars</p>
+                                <p>Secondary carbon steel pup coils</p>
+                                <p>Secondary carbon steel master coils</p>
+                                <p>Secondary carbon steel plates</p>
+                                <p>Secondary carbon steel bars</p>
+
+
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <img src="~/images/export1.jpg" class="img-responsive">
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <p><strong>Carbon steel scrap:</strong></p>
+                                <p>
+                                    HMS
+
+                                </p>
+                                <p>P & S</p>
+                                <p>Shredded scrap</p>
+
+
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <h4>Export Product line</h4>
+                                <p><strong>Usables:</strong></p>
+                                <p>Secondary carbon steel pup coils</p>
+                                <p>Secondary carbon steel master coils</p>
+                                <p>Secondary carbon steel plates</p>
+                                <p>Secondary carbon steel bars</p>
+                                <p>Secondary carbon steel pup coils</p>
+                                <p>Secondary carbon steel master coils</p>
+                                <p>Secondary carbon steel plates</p>
+                                <p>Secondary carbon steel bars</p>
+
+
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <img src="~/images/export1.jpg" class="img-responsive">
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <p><strong>Carbon steel scrap:</strong></p>
+                                <p>
+                                    HMS
+
+                                </p>
+                                <p>P & S</p>
+                                <p>Shredded scrap</p>
+
+
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <h4>Export Product line</h4>
+                                <p><strong>Usables:</strong></p>
+                                <p>Secondary carbon steel pup coils</p>
+                                <p>Secondary carbon steel master coils</p>
+                                <p>Secondary carbon steel plates</p>
+                                <p>Secondary carbon steel bars</p>
+                                <p>Secondary carbon steel pup coils</p>
+                                <p>Secondary carbon steel master coils</p>
+                                <p>Secondary carbon steel plates</p>
+                                <p>Secondary carbon steel bars</p>
+
+
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <img src="~/images/export1.jpg" class="img-responsive">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 wow fadeInLeft animated">
+                        <h2 class="wellcome">Testimonials</h2>
+                        <div id="tcb-testimonial-carousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                            <figure class="clearfix">
+                                                <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client1.jpg"> </div>
+
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                            <figure class="clearfix">
+                                                <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client2.jpg"> </div>
+
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                            <figure class="clearfix">
+                                                <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client3.jpg"> </div>
+
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                            <figure class="clearfix">
+                                                <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client4.jpg"> </div>
+
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="item">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                            <figure class="clearfix">
+                                                <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client5.jpg"> </div>
+
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="item">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                            <figure class="clearfix">
+                                                <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client6.jpg"> </div>
+
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="item">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                            <figure class="clearfix">
+                                                <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client7.jpg"> </div>
+
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="item">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                            <figure class="clearfix">
+                                                <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client8.jpg"> </div>
+
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="item">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 wow fadeInLeft animated">
+                                            <figure class="clearfix">
+                                                <div class="col-md-12 col-sm-12 col-xs-12"><img class="img-responsive media-object" src="~/images/client9.jpg"> </div>
+
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                 
+                
+            </div>
+
+
+        </section>
+
+
+
+        <section id="footer-wrapper">
+            <!-- Footer top start -->
+            <footer id="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+                            <div class="quicklinks">
+                                <h3 class="footer-title">Quick Links</h3>
+
+
+                                <ul>
+                                    <li><a href="#">HOME </a></li>
+                                    <li><a href="#">LOCAL DISTRIBUTION</a></li>
+                                    <li><a href="#">EXPORT SALES   </a></li>
+                                    <li><a href="#">INVENTORY</a></li>
+                                    <li><a href="#">DATA TABLES   </a></li>
+                                    <li><a href="#">POLICIES   </a></li>
+                                </ul>
+
+
+                            </div>
+                        </div><!--/ end about us -->
+
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+                            <div class="quicklinks">
+                                <h3 class="footer-title">Quick Links</h3>
+                                <ul>
+                                    <li><a href="#">HOME </a></li>
+                                    <li><a href="#">LOCAL DISTRIBUTION</a></li>
+                                    <li><a href="#">EXPORT SALES   </a></li>
+                                    <li><a href="#">INVENTORY</a></li>
+                                    <li><a href="#">DATA TABLES   </a></li>
+                                    <li><a href="#">POLICIES   </a></li>
+                                </ul>
+                            </div>
+                        </div><!--/ end recent post -->
+
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+
+                            <h3 class="footer-title">contact Us</h3>
+                            <div class="contactaddress">
+
+                                <address>
+                                    <ul class="list-unstyled">
+                                        <li class="footer-sprite address">
+                                            50 Cragwood Road, Suite 308<br>
+                                            South Plainfield, NJ 07080<br>
+                                            USA<br>
+                                        </li>
+                                        <li class="footer-sprite phone">
+                                            Tel : 001 (908) 222-1500
+                                        </li>
+                                        <li class="footer-sprite email">
+                                            <a href="mailto: rmmetals@gmail.com"> rmmetals@gmail.com</a>
+                                        </li>
+                                    </ul>
+                                </address>
+
+                            </div>
+
+                        </div><!--/ end flickr -->
+
+                        <div class="col-md-3 col-sm-3 wow fadeInRight animated">
+                            <div class="footer-icons">
+                                <h3 class="footer-title">Fallow Us</h3>
+                                <p class="footer-social">
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                    <a href="#"><i class="fa fa-skype"></i></a>
+                                    <a href="#"><i class="fa fa-comments"></i></a>
+
+                                </p>
+                                <div class="newsletter">
+                                    <h4>Newsletter subscription</h4>
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control emailform" id="email" value="E-mail">
+                                        </div>
+                                    </form>
+                                    <button type="button" class="btn btn-primary submitbutton">Submit</button>
+                                </div>
+                            </div>
+                        </div><!--/ end tweet -->
+
+                    </div><!-- Row end -->
+                </div><!-- Container end -->
+            </footer><!-- Footer top end -->
+            <!-- Footer bottom start -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+
+
+                        <div class="col-md-12 wow fadeInRight animated" style="visibility: visible;">
+                            <div class="copyright-info">
+                                Rights Reserved, RM METALS 2011-2016  Copyright</span>
+                            </div>
+                        </div>
+                    </div><!-- Row end -->
+                </div><!-- Container end -->
+            </div><!-- Footer bottom end -->
+        </section>
+    </scetion>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <!-- Owl Carousel -->
+    <script type="text/javascript" src="~/js/owl.carousel.js"></script>
+    <!-- SmoothScroll -->
+    <script type="text/javascript" src="~/js/smoothscroll.js"></script>
+
+</body>
+</html>
